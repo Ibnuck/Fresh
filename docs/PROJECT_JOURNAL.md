@@ -54,3 +54,9 @@ The planned first commit is `chore: establish Fresh agentic project foundation`.
 The owner manually committed and pushed the G00 baseline through Xcode as `bf7e711` (`init: project agent markdown`). Local `main` and `origin/main` were observed at the same commit, with all 105 intended files tracked, no non-ignored untracked files, and DEC-009/free-text Quick Add included.
 
 After this experience, the owner chose a permanent manual Git boundary. Codex now performs only read-only Git inspection and provides a complete post-gate handoff: branch/base, exact paths, commit subject, commands, push target, PR text, and expected checks. The owner performs every branch, staging, commit, push, PR, merge, authentication, and configuration action.
+
+## 2026-08-13 — Visual reference corrected before icon generation
+
+The selected Sprout & Slice concept board and the UI visual catalog were added as project references. During the first Icon Composer attempt, the owner noticed that the supplied three foreground layers did not match the selected icon concept. The project therefore stopped before claiming a runtime icon.
+
+The corrected direction uses one complete transparent foreground PNG that must reproduce the concept as closely as possible. Background colors remain under owner control in Icon Composer. This reference milestone is published first; the exact image-generation prompt and runtime integration follow as separate reviewed steps.

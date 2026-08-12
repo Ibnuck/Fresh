@@ -16,6 +16,7 @@ This is the durable source for material decisions from project conversations. En
 | DEC-008 | 2026-08-12 | accepted | Record outcome summaries and material decisions as project memory. |
 | DEC-009 | 2026-08-12 | accepted | Use free-text food context and generated category; keep ripeness inside condition. |
 | DEC-010 | 2026-08-13 | accepted | Make all Fresh Git/GitHub writes owner-managed. |
+| DEC-011 | 2026-08-13 | accepted | Regenerate the selected icon as one transparent foreground. |
 
 ---
 
@@ -264,3 +265,33 @@ The existing G00 baseline was manually committed and pushed by the owner as `bf7
 ### Consequences and revisit trigger
 
 The owner performs a few additional commands, while accidental cross-repository or premature publication risk is reduced. Future chats must end completed goals with instructions rather than Git mutations. Revisit only if the owner explicitly replaces this policy in a later recorded decision.
+
+---
+
+## DEC-011 — Regenerate the selected icon as one transparent foreground
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: visual identity, app icon, workflow
+- Related goal: G00 visual-foundation follow-up
+- References: `Design/AppIcon/APP_ICON_SPEC.md`, `Design/AppIcon/APP_ICON_COMPOSER_SPEC.md`
+
+### Context
+
+The owner discovered during Icon Composer setup that the supplied front, middle, and back PNG layers did not match the selected Sprout & Slice concept board. Continuing with those layers would produce a technically editable icon with the wrong geometry and appearance.
+
+### Options considered
+
+1. Keep and manually repair the three existing layers.
+2. Generate three replacement layers from the concept.
+3. Generate one complete transparent foreground that matches the concept, then control only its background in Icon Composer.
+
+### Decision
+
+Use option 3. `Fresh_App_Icon_Concept_02.png` is the authoritative visual reference. The next generator must reproduce its complete symbol as closely as possible in one `1024 × 1024` transparent PNG. The PNG contains no background or iOS mask. The owner configures background colors in Icon Composer.
+
+The old three-layer assets are not production masters and are not committed as authoritative design sources. Runtime icon integration remains incomplete until the replacement PNG is reviewed and imported.
+
+### Consequences and revisit trigger
+
+The exact approved geometry is easier to preserve and Icon Composer background changes remain flexible, while per-element depth control is intentionally sacrificed. Revisit only if Apple tooling requires multiple foreground layers or a verified single-layer export cannot preserve small-size readability.

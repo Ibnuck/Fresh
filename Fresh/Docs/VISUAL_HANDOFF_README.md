@@ -9,6 +9,8 @@ Fresh adalah aplikasi iPhone native SwiftUI untuk membantu pengguna rumahan meng
 ## Tugas chat visual
 
 1. Baca dokumen dalam urutan berikut:
+   - `../../Design/README.md` untuk status identitas dan artefak visual;
+   - `../../Design/UIConcepts/VISUAL_DIRECTION_RECONCILIATION.md` untuk batas penggunaan katalog konsep;
    - `APP_CONCEPT_RESEARCH.md` untuk konteks produk;
    - `UI_UX_DESIGN_RESEARCH.md` untuk dasar keputusan visual;
    - `DESIGN_SYSTEM.md` untuk aturan global;
@@ -26,8 +28,14 @@ Jika dokumen berbeda, gunakan urutan prioritas berikut:
 1. Screen spec target.
 2. `DESIGN_SYSTEM.md`.
 3. `VISUAL_GENERATION_GUIDE.md`.
-4. Research documents.
-5. Interpretasi visual Anda sendiri.
+4. `../../Design/UIConcepts/VISUAL_DIRECTION_RECONCILIATION.md`.
+5. Gambar konsep di `../../Design/`.
+6. Research documents.
+7. Interpretasi visual Anda sendiri.
+
+## Status app icon
+
+Sprout & Slice adalah konsep yang dipilih, tetapi artwork runtime final belum selesai. Untuk pekerjaan ikon, baca `../../Design/AppIcon/APP_ICON_SPEC.md`. Jangan memakai atau menciptakan ulang tiga layer lama; output berikutnya harus satu foreground transparan yang meniru gambar konsep sedekat mungkin. Background akan diatur oleh pemilik di Apple Icon Composer.
 
 ## Batas penting
 
