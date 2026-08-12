@@ -1,0 +1,149 @@
+# =============================================================================
+# Fresh — Xcode / Swift project
+# =============================================================================
+# Keep source code, project settings, shared schemes, Package.resolved,
+# documentation, .agents/, and .codex/ tracked. Ignore only generated,
+# machine-specific, local-secret, or disposable files.
+
+# macOS / Finder --------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100/
+.fseventsd/
+.Spotlight-V100/
+.TemporaryItems/
+.Trashes/
+
+# Xcode: per-user state --------------------------------------------------------
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+*.pbxuser
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+# Xcode: generated build products and metadata --------------------------------
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+*.app.dSYM
+*.app.dSYM.zip
+*.xcarchive
+*.linkFileList
+*.swiftmodule
+*.swiftdoc
+*.swiftsourceinfo
+*.abi.json
+*.bcsymbolmap
+*.ipa
+*.symbols
+*.symbols.zip
+*.resultbundle
+*.xcresult
+*.xcactivitylog
+*.gcda
+*.gcno
+*.profdata
+*.profraw
+
+# Xcode previews, playgrounds, and generated timelines ------------------------
+*.playground/timeline.xctimeline
+*.playground/playground.xcworkspace
+timeline.xctimeline
+playground.xcworkspace
+.swiftpm/xcode/xcuserdata/
+
+# Swift Package Manager --------------------------------------------------------
+.build/
+.swiftpm/configuration/
+.swiftpm/security/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+Packages/
+# Package.resolved is intentionally tracked for an application project.
+
+# Dependency managers (only relevant if introduced later) ---------------------
+# CocoaPods: keep Podfile and Podfile.lock; generated Pods are reproducible.
+Pods/
+
+# Carthage build output is reproducible; checked-out source is also disposable.
+Carthage/Build/
+Carthage/Checkouts/
+
+# Accio
+.accio/
+Dependencies/
+
+# Tuist and XcodeGen generated/cache output -----------------------------------
+.tuist-cache/
+.tuist-bin/
+.xcodegen/
+
+# fastlane generated reports and screenshots ---------------------------------
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+fastlane/readme.md
+
+# Test, lint, formatting, and coverage caches ---------------------------------
+.test-results/
+TestResults/
+coverage/
+.coverage/
+.swiftlint-cache/
+.swiftformat-cache/
+sonar-reports/
+
+# Local environment and secrets -----------------------------------------------
+# Commit a safe example such as .env.example, never real credentials.
+.env
+.env.*
+!.env.example
+*.local
+*.secret
+*.secrets
+Secrets.xcconfig
+Local.xcconfig
+GoogleService-Info.plist
+
+# Editors and local IDE metadata ----------------------------------------------
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*~
+*.swp
+*.swo
+
+# Logs, crash reports, and temporary files ------------------------------------
+*.log
+*.trace
+*.crash
+*.ips
+*.tmp
+*.temp
+.tmp/
+tmp/
+
+# Local agent/runtime artifacts ------------------------------------------------
+# Keep .agents/ skills and .codex/ project configuration tracked.
+.codex-log/
+.superpowers/
+
+# Local AI-generated visual drafts --------------------------------------------
+# Final approved assets and Markdown specs belong in the repository; raw,
+# disposable generation batches can live under this ignored directory.
+artifacts/generated-drafts/

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fresh Code Review"
+  short_description: "Runs an evidence-based read-only quality gate."
+  default_prompt: "Use $fresh-code-review to review the current Fresh goal without editing code."

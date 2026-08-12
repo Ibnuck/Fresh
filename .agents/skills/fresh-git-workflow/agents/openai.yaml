@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fresh Git Workflow"
+  short_description: "Safely gates Fresh commits, pushes, and pull requests."
+  default_prompt: "Use $fresh-git-workflow to publish a completed Fresh goal safely."
