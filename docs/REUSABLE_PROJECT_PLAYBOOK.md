@@ -220,6 +220,8 @@ Do not store raw chats. Preserve superseded decisions so future agents understan
 
 ## 13. Git and publication
 
+Choose publication authority explicitly during bootstrap. For Fresh, the selected policy is owner-managed Git: the agent performs read-only inspection, enforces the quality gate, and provides exact instructions; the owner performs every Git/GitHub mutation. Other projects may choose a different policy, but it must be recorded and unambiguous.
+
 For a simple personal project:
 
 ```text
@@ -228,7 +230,7 @@ dev        accepted goal integration
 feature/*  one goal per branch
 ```
 
-Before an agent commits/pushes/opens a PR, require:
+Before any publication handoff or authorized publisher commits/pushes/opens a PR, require:
 
 - complete intended scope/diff inspection;
 - no unrelated files or secrets;

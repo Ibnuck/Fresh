@@ -126,10 +126,10 @@ Ringkasan hasil: an independent context-clean reviewer confirms G00 meets its co
 
 Ringkasan hasil: the first stable baseline is ready for GitHub without risking another repo or publishing unreviewed work.
 
-- [ ] Verify authenticated GitHub owner and `Ibnuck/Fresh` private empty repository.
-- [ ] Verify `origin` exactly matches the intended repository.
-- [ ] Only after every prior gate passes, commit on `main` as `chore: establish Fresh agentic project foundation`.
-- [ ] Push first baseline only with explicit in-scope authorization and observed success.
+- [x] Owner manually committed and pushed the initial baseline through Xcode as `bf7e711` (`init: project agent markdown`).
+- [x] Verify local `main`, `origin/main`, configured `origin`, tracked-file count, and clean working tree after the owner's push.
+- [x] Record DEC-010: all future Git/GitHub writes are owner-managed; Codex provides instructions only.
+- [ ] Owner confirms the GitHub repository's intended private visibility; local Git cannot prove visibility without authenticated GitHub metadata.
 - [ ] Create `dev` after the accepted `main` baseline; do not start G01 yet.
 
 ## Verification record
@@ -146,12 +146,13 @@ Fill this section with exact commands and observed results. `Reported passing` i
 | App bundle hygiene | inspect `Fresh.app` after clean build | PASS; 0 Markdown files bundled |
 | Full scope/secret inspection | all untracked/intended paths listed; secret/large/executable/ignored-file checks | PASS |
 | Final fresh review | context-clean full-tree cycle 1 | PASS; post-record check pending |
-| GitHub remote identity | local origin configured; authenticated check unavailable | blocked prerequisite |
+| Owner publication | `bf7e711`; local `main` and `origin/main` aligned; 105 tracked, 0 untracked | PASS locally; remote visibility remains owner-confirmed |
 
 ## Planned publication metadata
 
 - Initial branch: `main`.
-- Commit subject: `chore: establish Fresh agentic project foundation`.
+- Actual owner-created commit: `bf7e711` — `init: project agent markdown`.
+- Do not amend published history merely to replace the subject with the earlier recommendation.
 - G00 PR: none; first verified baseline goes directly to the empty `main`.
 - Later integration branch: `dev`.
 - First feature branch: `feature/g01-app-shell`.

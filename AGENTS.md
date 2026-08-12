@@ -61,14 +61,14 @@ Never claim a command passed unless its current output was observed.
 
 ## Git and GitHub
 
-Use `$fresh-git-workflow`. Do not commit, push, or open a PR until the whole goal passes acceptance criteria, verification, diff/secret inspection, and a fresh reviewer returns no material findings. Work only in `/Users/ibnutaufickahraza/Swift/Fresh`.
+Use `$fresh-git-workflow`. Git publication is owner-managed: Codex may inspect Git state read-only, but must not create/switch branches, stage, commit, push, open/update a PR, merge, or change Git/GitHub configuration. After the whole goal passes acceptance criteria, verification, diff/secret inspection, and a fresh reviewer returns no material findings, give the owner a complete manual Git handoff. Work only in `/Users/ibnutaufickahraza/Swift/Fresh`.
 
 - Initial G00 baseline: `main` after quality gate.
 - Integration: `dev`.
 - Later goals: `feature/gXX-short-name`, based on `dev`, PR back to `dev`.
 - Milestone promotion: `dev` to `main` only when the user approves.
 
-Never force-push, rewrite published history, delete branches, or touch another repository without explicit, target-specific user authorization.
+The handoff must state the goal, intended branch/base, exact paths to stage, commit subject, commands, PR title/body when relevant, and checks the owner should observe. Never recommend force-push, published-history rewrites, branch deletion, or operations in another repository.
 
 ## Scope and quality
 

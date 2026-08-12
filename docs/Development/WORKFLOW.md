@@ -17,7 +17,8 @@ Goal outcome
   → validated repairs
   → new fresh reviewer
   → clean quality gate
-  → commit / push / draft PR
+  → manual Git handoff
+  → owner commits / pushes / opens draft PR
 ```
 
 ## Goal packet
@@ -49,7 +50,16 @@ Use `.agents/skills/fresh-code-review/references/review-packet-template.md`. Eve
 
 ## Publication
 
-Use `$fresh-git-workflow`. No agent-created checkpoint commit, push, or PR occurs before the full goal gate is clean. G00 establishes main; later goals use `feature/gXX-name` into `dev`.
+Use `$fresh-git-workflow`. Git is owner-managed: the agent performs read-only inspection and never creates/switches branches, stages, commits, pushes, opens/updates PRs, merges, or changes Git/GitHub configuration. After the full goal gate is clean, the agent provides a manual handoff containing:
+
+- intended branch and base;
+- exact files to stage;
+- one recommended commit subject;
+- copyable commands for status, staging, cached-diff inspection, commit, and push;
+- draft PR base, title, and body when relevant;
+- expected verification after each external action.
+
+G00 was manually published by the owner to `main` as commit `bf7e711` (`init: project agent markdown`). Later goals use `feature/gXX-name` into `dev`. The agent may verify a completed owner action read-only, but must not continue with another Git write.
 
 ## Completion summary
 

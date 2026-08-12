@@ -1,15 +1,28 @@
 ---
 name: fresh-git-workflow
-description: Safely manages Git and GitHub work only for the local Fresh repository, including goal branches, quality-gated commits, remotes, pushes, draft pull requests, titles, descriptions, and handoff summaries. Use when creating or naming a Fresh branch, preparing a commit, publishing a completed goal, opening or updating a PR, or checking whether code is ready for GitHub.
+description: Prepares safe, owner-executed Git and GitHub handoffs only for the local Fresh repository, including read-only readiness checks, branch names, commit messages, exact staged paths, push commands, draft pull request titles/bodies, and post-action verification. Use when planning a Fresh branch, preparing a commit, publishing a completed goal, describing a PR, checking readiness, or verifying Git actions the owner performed manually.
 ---
 
 # Fresh Git Workflow
 
-Manage Git publication for Fresh without touching any other repository. A finished edit is not automatically publishable.
+Prepare Git publication instructions for Fresh without touching any other repository. A finished edit is not automatically publishable, and publication remains an owner action even after the gate is clean.
+
+## Owner-managed Git boundary
+
+Codex must not perform any Git or GitHub operation that changes state. Do not:
+
+- create, switch, rename, or delete a branch;
+- stage or unstage files;
+- commit, amend, rebase, merge, revert, or cherry-pick;
+- push, pull, fetch, or change remotes/configuration;
+- create, edit, close, mark ready, or merge a pull request;
+- invoke `$github:yeet` or another publishing automation.
+
+Read-only commands such as `git status`, `git diff`, `git log`, `git show`, `git branch -vv`, `git remote -v`, and `git rev-parse` are allowed when scoped to Fresh. After a clean gate, give the owner copyable instructions instead of executing them. If the owner later reports a manual action, verify it read-only and report discrepancies; do not repair Git state automatically.
 
 ## Hard scope boundary
 
-Before any Git write, resolve and print:
+Before preparing any Git handoff, resolve and print:
 
 ```text
 Expected worktree: /Users/ibnutaufickahraza/Swift/Fresh
@@ -20,11 +33,11 @@ Remote: <git remote -v>
 
 Stop if the resolved repository root is not exactly `/Users/ibnutaufickahraza/Swift/Fresh`. Never run Git with another working directory, traverse into a neighboring repo, or change another repo's remote/config.
 
-Never expose credentials, embed tokens in a remote URL, force-push, rewrite published history, delete remote branches, or use destructive reset/clean commands unless the user explicitly requests the exact action and its target is verified.
+Never request credentials or embed tokens in commands. Never recommend force-push, rewriting published history, destructive reset/clean, or deleting local/remote branches. If such an operation is genuinely needed, stop and explain the risk; this skill does not authorize it.
 
 ## Publication quality gate
 
-For work performed by an agent, do not commit, push, or open a PR until every item is true:
+Do not describe a goal as ready for the owner's commit/push/PR until every item is true:
 
 1. Goal ID, outcome summary, spec, and acceptance criteria exist.
 2. `git status` and the complete intended diff were inspected.
@@ -34,15 +47,15 @@ For work performed by an agent, do not commit, push, or open a PR until every it
 6. The latest reviewer returned `Verdict: No material findings.`
 7. Any earlier finding is fixed or explicitly accepted by the user with its risk documented.
 
-If one item is false, return `Publication blocked` with the missing evidence and the next safe action. Do not create a checkpoint commit unless the user explicitly overrides this project policy.
+If one item is false, return `Publication blocked` with the missing evidence and the next safe non-Git action. Do not suggest a checkpoint/WIP commit.
 
 After any repair, verification and a new fresh review are required. The reviewer that raised a finding does not approve its own fix.
 
 ## Branch model
 
-- G00 initial agentic baseline may commit directly to `main` after its gate is clean.
-- Create `dev` from the accepted G00 `main` baseline.
-- Every later goal starts from current `dev` using `feature/gXX-short-kebab-name`.
+- G00 initial agentic baseline was manually committed and pushed by the owner to `main` as `bf7e711` (`init: project agent markdown`). Preserve that published history; do not ask the owner to amend it merely to change the subject.
+- Recommend that the owner create `dev` from the accepted G00 `main` baseline.
+- Recommend that every later goal start from current `dev` using `feature/gXX-short-kebab-name`.
 - Merge goal PRs into `dev`.
 - Promote `dev` to `main` only for a user-approved milestone.
 - One feature branch contains one roadmap goal; split materially independent scope instead of hiding it in one PR.
@@ -78,23 +91,19 @@ Allowed types:
 
 Rules: lower-case type, no trailing period, aim for 72 characters or fewer, state the outcome rather than file activity. Never add co-author attribution unless the named person explicitly contributed and wants it.
 
-G00 planned commit:
+The owner already published G00 with a different subject. Preserve it. Recommend a new subject only for the current uncommitted goal or repair; never reuse a historical recommendation merely to make the log look uniform.
 
-```text
-chore: establish Fresh agentic project foundation
-```
-
-## Safe local workflow
+## Read-only preparation workflow
 
 1. Run read-only orientation: `pwd`, repo root, branch, status, remotes, recent log.
 2. Inspect untracked and tracked scope; search filenames and diff for likely secrets.
 3. Confirm the publication quality gate.
-4. Stage explicit intended paths. Use `git add -A` only when the entire worktree is confirmed in scope.
-5. Inspect `git diff --cached --stat` and `git diff --cached`.
-6. Commit with the approved message.
-7. Verify the new commit summary and ensure the worktree is clean or only contains known unrelated changes.
+4. Enumerate exact intended paths; never stage them.
+5. Recommend one commit subject and determine the intended branch/base/push/PR metadata.
+6. Produce the manual handoff below.
+7. After the owner acts, verify branch/upstream/commit/status read-only when requested or when needed before starting the next goal.
 
-Do not amend a published commit. Do not automatically amend a local commit after hooks; create a new commit unless the user asks to amend.
+Never recommend amending a published commit just to improve its message. A later documentation correction receives a new commit after its own gate.
 
 ## GitHub repository and remote
 
@@ -105,18 +114,22 @@ Default repository proposal for this personal project:
 - Description: `A native iOS app that helps prioritize food before it is forgotten.`
 - Initialize remotely with README/license/gitignore: no, because the local repository already contains project history.
 
-Before creating the remote, verify the authenticated GitHub owner and that `owner/Fresh` does not already exist. Never overwrite or repurpose an existing remote repository. Add `origin` only after matching owner, repository name, and URL.
+The owner manages repository creation, authentication, visibility, and remote configuration. Codex may inspect the configured remote read-only and flag a mismatch, but must not create/repurpose a repository, log in, or change `origin`.
 
-The GitHub publish workflow requires authenticated `gh`. If `gh` is missing or unauthenticated, stop and provide the exact prerequisite; do not use a browser session, raw token, or unofficial API workaround.
+## Manual handoff
 
-## Push and PR workflow
+Only after the gate passes, provide one self-contained block in this order:
 
-Use the installed GitHub `yeet` skill after this project gate passes, while preserving Fresh-specific branch names and base rules.
+1. `Status`: `Ready for manual Git` or `Publication blocked`.
+2. Goal outcome and final reviewer verdict.
+3. Intended branch and base.
+4. Exact relative paths to stage. Prefer explicit paths; suggest `git add -A` only when the complete worktree is proven in scope and list that fact.
+5. Recommended commit subject.
+6. Copyable commands for the owner. Include `cd /Users/ibnutaufickahraza/Swift/Fresh`, orientation, branch creation/switch when required, staging, `git diff --cached --check`, `git diff --cached --stat`, commit, push, and final status/log checks.
+7. For feature goals, draft PR base/title/body. For milestone promotion, target `main` only after explicit owner approval.
+8. A short expected-result checklist so the owner can report success or paste an error.
 
-1. Push current branch with tracking to the verified `origin`.
-2. For feature goals, open a draft PR from `feature/gXX-...` to `dev`.
-3. For milestone promotion, open a separate PR from `dev` to `main` only when requested.
-4. Never claim push/PR success without checking the returned remote/URL.
+Commands are instructions for the owner, not authorization for Codex to execute them.
 
 PR title format:
 
@@ -151,11 +164,11 @@ What the user can now do.
 - [x] Fresh reviewer clean
 ```
 
-Open as draft by default. Mark ready or merge only when the user explicitly requests that next external action and required checks remain green.
+Ask the owner to open feature PRs as draft by default. The owner alone marks ready or merges.
 
 ## Handoff format
 
-After a successful publication action, report:
+After an owner-reported publication action, verify read-only where local evidence permits and report:
 
 - goal and outcome summary;
 - branch and base;
@@ -163,4 +176,4 @@ After a successful publication action, report:
 - remote repository;
 - PR URL and draft/ready state, if created;
 - verification evidence and final fresh-review verdict;
-- any remaining user action.
+- any remaining owner action or evidence that could not be verified locally.

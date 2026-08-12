@@ -15,11 +15,13 @@
 - [ ] A new context-clean reviewer reviewed the current result.
 - [ ] Final verdict is `No material findings`.
 
-## Publication
+## Owner handoff
 - [ ] Branch follows the Fresh roadmap convention.
 - [ ] Commit subject describes outcome and follows the type convention.
-- [ ] Cached diff was inspected before commit.
+- [ ] Exact paths to stage are listed for the owner.
+- [ ] Commands include cached-diff check/stat before commit.
 - [ ] Push target matches the verified origin.
 - [ ] PR target is `dev` for a goal or `main` for an approved milestone.
 - [ ] PR body records verification, review cycles, risks, and exclusions.
+- [ ] Codex performed no branch, staging, commit, push, PR, merge, authentication, or Git configuration write.
 ```

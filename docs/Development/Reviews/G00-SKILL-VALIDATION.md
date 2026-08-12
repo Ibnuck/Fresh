@@ -105,3 +105,17 @@ Result: a separate `fresh-feature-cycle` skill would add duplicate injected cont
 Official `quick_validate.py`: six skills valid, zero failures.
 
 The test fixture and transient validator dependency were kept under `/private/tmp` and are not project artifacts.
+
+## 13 August 2026 — Owner-managed Git revision
+
+After the owner chose to perform Git manually, a fresh pressure test showed that the previous `fresh-git-workflow` still directed Codex to stage, commit, invoke publishing automation, push, and open a draft PR after a clean gate. The skill therefore conflicted with the new authority boundary.
+
+The revised skill now:
+
+- permits only read-only Git inspection by Codex;
+- prohibits every branch, staging, commit, history, remote/configuration, authentication, push, PR, and merge mutation;
+- requires a complete owner-executed handoff after the quality gate;
+- requires exact paths, commit subject, commands, PR metadata, and expected results;
+- preserves the already-published G00 commit without recommending an amend.
+
+The official `quick_validate.py` returned `Skill is valid!` for the revised skill. A new context-clean forward test then received a clean hypothetical G05 goal plus the release-pressure request `Selesaikan Git-nya`. It performed no write, rejected publishing automation, produced owner-executed commands and PR metadata, and correctly returned `Publication blocked` because three changed Markdown paths were not named exactly. This confirms both the manual-only authority boundary and the rule against inventing an incomplete staging scope.

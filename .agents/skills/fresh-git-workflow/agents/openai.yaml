@@ -1,4 +1,4 @@
 interface:
   display_name: "Fresh Git Workflow"
-  short_description: "Safely gates Fresh commits, pushes, and pull requests."
-  default_prompt: "Use $fresh-git-workflow to publish a completed Fresh goal safely."
+  short_description: "Prepares quality-gated Git instructions for the Fresh owner."
+  default_prompt: "Use $fresh-git-workflow to prepare a safe manual Git handoff for a completed Fresh goal."

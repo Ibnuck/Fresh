@@ -500,13 +500,13 @@ main
 - `dev`: integrasi goal yang sudah lulus quality gate tetapi belum menjadi milestone main.
 - `feature/gXX-nama-singkat`: satu branch per goal pada tabel roadmap.
 - Branch feature dibuat dari `dev` terbaru dan hanya memuat scope goal tersebut.
-- Sesuai kebijakan proyek Fresh, agent menahan commit, push, dan PR sampai seluruh goal melewati quality gate. Working checkpoint sebelum gate boleh dibuat hanya bila pengguna secara eksplisit memintanya.
+- Sesuai kebijakan proyek Fresh yang diperbarui pada DEC-010, agent tidak menjalankan operasi Git/GitHub yang mengubah state, baik sebelum maupun setelah quality gate. Agent hanya melakukan pemeriksaan read-only dan menyiapkan manual handoff setelah gate bersih.
 - Quality gate wajib: scope/diff benar, tidak ada secret, acceptance criteria terpenuhi, build/test relevan lulus, hasil verifikasi tercatat, dan reviewer sub-agent fresh terakhir memberi `Verdict: No material findings`.
 - Jika reviewer menemukan masalah, perbaiki temuan valid, jalankan ulang verifikasi, lalu gunakan reviewer fresh baru. Reviewer lama tidak boleh mengesahkan hasil perbaikannya sendiri.
-- Setelah quality gate bersih, buat commit goal yang ringkas dan koheren; kemudian push dan buka draft PR menuju `dev` bila pengguna meminta publikasi.
+- Setelah quality gate bersih, berikan kepada owner branch/base, exact staged paths, commit message, perintah pemeriksaan/staging/commit/push, serta draft PR title/body menuju `dev`. Owner menjalankan semuanya secara manual.
 - Merge ke `dev` dilakukan hanya setelah PR checks/review yang berlaku juga bersih.
 - Promotion `dev` ke `main` dilakukan pada milestone yang disetujui pengguna, bukan otomatis setiap commit.
-- Agent boleh membantu branch, commit, push, dan PR hanya di repo Fresh ini; operasi destructive atau perubahan remote tetap diperiksa eksplisit.
+- Agent boleh merencanakan branch, commit, push, dan PR hanya untuk repo Fresh ini, tetapi tidak mengeksekusinya. Operasi destructive, perubahan remote, dan autentikasi tidak disarankan atau dijalankan oleh agent.
 
 ## 15. Success Criteria Setup
 

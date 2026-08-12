@@ -15,6 +15,7 @@ This is the durable source for material decisions from project conversations. En
 | DEC-007 | 2026-08-12 | accepted | Use main/dev/one-feature-branch-per-goal Git flow. |
 | DEC-008 | 2026-08-12 | accepted | Record outcome summaries and material decisions as project memory. |
 | DEC-009 | 2026-08-12 | accepted | Use free-text food context and generated category; keep ripeness inside condition. |
+| DEC-010 | 2026-08-13 | accepted | Make all Fresh Git/GitHub writes owner-managed. |
 
 ---
 
@@ -65,6 +66,8 @@ After implementation and verification, spawn a context-clean read-only reviewer 
 ### Consequences and revisit trigger
 
 Reviews cost more tokens but reduce confirmation bias. After the same root cause survives three cycles, stop patching and perform root-cause analysis before changing architecture/scope.
+
+Publication still requires this clean gate. The earlier implication that an agent might execute Git writes after the gate is superseded by DEC-010; the owner now performs every Git/GitHub mutation.
 
 ---
 
@@ -229,3 +232,35 @@ The exact user-entered strings are retained alongside normalized internal values
 ### Consequences and revisit trigger
 
 The form is simpler and accommodates everyday Indonesian phrasing, but G05/G09 must test text preservation, normalization, ambiguity, correction, and AI-unavailable fallback. Revisit only if usability testing shows free text is slower or more confusing than a small optional suggestion layer; any future suggestions must remain optional and must not replace the raw text.
+
+---
+
+## DEC-010 — Owner-managed Git and GitHub writes
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: workflow, Git, release authority
+- Related goal: project-wide
+- References: `AGENTS.md`, `docs/Development/WORKFLOW.md`, `.agents/skills/fresh-git-workflow/SKILL.md`
+
+### Context
+
+The initial workflow allowed Codex to create branches, commit, push, and open draft pull requests after the quality gate. During G00, GitHub CLI setup was unreliable and the owner successfully committed and pushed through Xcode. The owner prefers to retain direct control of every Git/GitHub mutation and wants Codex to provide the correct commands and metadata instead.
+
+### Options considered
+
+1. Let Codex publish automatically after a clean gate: convenient, but conflicts with the owner's preferred control boundary.
+2. Allow either party to publish depending on tool availability: flexible, but ambiguous for future chats.
+3. Make publication owner-managed and Codex read-only for Git: explicit, predictable, and easy to audit.
+
+### Decision
+
+Use option 3. Codex may run read-only Git inspection only. Codex must not create or switch branches, stage/unstage, commit, amend, merge, rebase, push/pull/fetch, change remotes/configuration, authenticate to GitHub, create/update/merge PRs, or invoke publishing automation.
+
+After a goal passes its complete quality gate, Codex supplies a manual Git handoff containing the intended branch/base, exact paths to stage, one commit subject, copyable commands, push target, draft PR title/body when applicable, and expected verification. The owner performs those actions. Codex may subsequently verify the local result read-only.
+
+The existing G00 baseline was manually committed and pushed by the owner as `bf7e711` with subject `init: project agent markdown`. Published history is preserved; no amend is requested merely to improve that message.
+
+### Consequences and revisit trigger
+
+The owner performs a few additional commands, while accidental cross-repository or premature publication risk is reduced. Future chats must end completed goals with instructions rather than Git mutations. Revisit only if the owner explicitly replaces this policy in a later recorded decision.

@@ -48,3 +48,9 @@ The planned first commit is `chore: establish Fresh agentic project foundation`.
 3. Commit/push G00 only after a clean gate.
 4. Create `dev` and begin G01 App Shell on `feature/g01-app-shell`.
 5. Before coding each UI goal, incorporate approved Markdown feedback from the external image-generation chat into the relevant source screen spec.
+
+## 2026-08-13 — Git ownership clarified
+
+The owner manually committed and pushed the G00 baseline through Xcode as `bf7e711` (`init: project agent markdown`). Local `main` and `origin/main` were observed at the same commit, with all 105 intended files tracked, no non-ignored untracked files, and DEC-009/free-text Quick Add included.
+
+After this experience, the owner chose a permanent manual Git boundary. Codex now performs only read-only Git inspection and provides a complete post-gate handoff: branch/base, exact paths, commit subject, commands, push target, PR text, and expected checks. The owner performs every branch, staging, commit, push, PR, merge, authentication, and configuration action.
