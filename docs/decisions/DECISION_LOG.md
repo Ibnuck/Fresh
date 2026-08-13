@@ -452,3 +452,31 @@ The previously approved four-step bitmap is preserved as superseded visual histo
 ### Consequences and revisit trigger
 
 The form is faster and exposes its scope immediately, but keyboard avoidance, scrolling, field focus, and Dynamic Type need explicit implementation tests. Revisit only if usability testing shows the consolidated form is cognitively heavy or completion quality materially declines.
+
+---
+
+## DEC-017 — Make empty-name validation reachable without enabling continuation
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: Quick Add validation and accessibility
+- Related goal: G05 Quick Add and Estimate Review
+- References: `Fresh/Docs/ScreenSpecs/04_QUICK_ADD.md`, `Design/GeneratedUI/Proposals/quick-add_GENERATED_UI_PROPOSAL.md`
+
+### Context
+
+The Quick Add contract disabled `Tinjau estimasi` while Name was empty but also said the error appeared after an attempted submit. A disabled SwiftUI button cannot be activated, so that trigger was unreachable, particularly for VoiceOver users.
+
+### Options considered
+
+1. Keep the action disabled and never show a specific inline error.
+2. Keep the action disabled, then show `Masukkan nama bahan.` after the Name field has been touched and subsequently loses focus empty or an earlier value is cleared.
+3. Leave the action enabled and validate only when it is tapped.
+
+### Decision
+
+Use option 2. The primary action remains visibly and semantically disabled until trimmed Name is nonempty. Once the user has interacted with Name, leaving it empty or clearing a prior value reveals the linked inline validation and announces it once. Entering a nonempty trimmed value removes the message.
+
+### Consequences and revisit trigger
+
+The form prevents invalid continuation while still explaining the requirement through a reachable, field-local interaction. Implementation must track touched/validation state separately from raw draft text. Revisit only if usability or VoiceOver testing shows the message timing is confusing; option 3 is the preferred fallback.

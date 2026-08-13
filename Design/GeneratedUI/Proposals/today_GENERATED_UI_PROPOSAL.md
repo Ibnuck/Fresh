@@ -1,15 +1,15 @@
 ---
 proposal_for_screen: today
-proposal_version: 2
+proposal_version: 3
 generator: Codex image generation
 generated_at: 2026-08-13
 source_spec_version: 1
-approval_status: approved
+approval_status: canonical-approved
 ---
 
 # Generated UI Proposal — Today
 
-## Assets
+## Canonical assets and authority
 
 | State | Appearance | Image file/path | Status |
 |---|---|---|---|
@@ -19,6 +19,16 @@ approval_status: approved
 | Populated | Dark | `../Screens/today_populated_dark_v01.png` | Supplementary appearance reference; not a competing canonical design. |
 
 Reusable illustration assets are tracked separately under `../Illustrations/`. Mockups define composition; runtime implementation should use reviewed transparent assets rather than crop food images from a screen bitmap. `food_thumbnail_bayam_transparent.png` and `food_thumbnail_susu_transparent.png` are approved only for thumbnail/row use at approximately `56–64 pt`; Food Detail will receive its own hero asset rather than upscaling either thumbnail.
+
+Implementation priority is: `Fresh/Docs/ScreenSpecs/02_TODAY.md` → `Fresh/Docs/DESIGN_SYSTEM.md` → this proposal → canonical bitmap. Exact copy, behavior, native safe areas, and adaptive accessibility take priority over pixel matching. Supplementary Empty and Dark images clarify state/appearance only; they do not create alternative compositions.
+
+## Measurement conventions
+
+- Reference viewport: `402 × 874 pt` iPhone portrait. The bitmap is a visual anchor, not a fixed-coordinate layout.
+- `Approx.` values may move by one `4 pt` spacing-grid step; `minimum` values must not shrink.
+- Heights are content-driven. At large Dynamic Type, row/card horizontal content may become vertical.
+- Main horizontal content inset: `20 pt`; common gaps: `8, 12, 16, 20, 24, 32 pt`.
+- Respect native navigation, tab, and home-indicator safe areas. Do not manually reproduce status-bar or tab-bar pixels.
 
 ## Visual summary
 
@@ -53,7 +63,7 @@ Use native large-title navigation behavior rather than manually fixing the title
 | Region | Position/size intent | Spacing/alignment | SwiftUI mapping | Behavior |
 |---|---|---|---|---|
 | Status/navigation | Top safe area; expanded large title; toolbar control minimum `44 × 44 pt` | Leading title; trailing gear | `.navigationTitle("Hari ini")`, `.navigationBarTitleDisplayMode(.large)`, `ToolbarItem` | Large title collapses natively on scroll. Gear accessibility label: `Buka pengaturan`. |
-| Context line | Full content width below title; content-driven height | Main horizontal inset `20 pt`; approx. `8–12 pt` below title | `Text` `.subheadline` | May wrap at large text sizes; never truncate. |
+| Context line | Full content width below title; content-driven height | Main horizontal inset `20 pt`; approx. `8–12 pt` below title | `Text` `.subheadline` | Exact `Yang paling berguna untuk diperhatikan sekarang.`; may wrap at large text sizes and never truncates. |
 | Use Today header | Full content width | Leading/trailing alignment; approx. `24–32 pt` above card | `HStack`, `Spacer`, text button | `Lihat semua` opens My Food and announces destination. |
 | Bayam priority card | Full content width; approx. `112 pt` in the approved bitmap; minimum `104 pt` | Internal padding approx. `16 pt`; radius `16 pt` | One `Button`/`NavigationLink` containing adaptive stack | At larger text sizes, center/trailing areas become vertical and card height grows. Whole surface is tappable. |
 | Bayam thumbnail | Approx. `64 × 64 pt`; aspect fit | Leading, vertically centered | Decorative `Image` with `.scaledToFit()` | Hide image from VoiceOver because the combined row identifies Bayam. |
@@ -79,17 +89,36 @@ Use native large-title navigation behavior rather than manually fixing the title
 
 ## Tokens and contrast
 
-| Pairing | Foreground | Background | Use |
+| Role | Light direction | Dark direction | Use/contrast rule |
 |---|---|---|---|
-| Primary | `#18201B` | `#F7F5EF` / `#FFFFFF` | Title, food names. |
-| Secondary | `#667068` | `#F7F5EF` / `#FFFFFF` | Context and metadata. |
-| Brand | `#1F6B4F` | `#F7F5EF` / `#FFFFFF` / `#DDEADF` | Selected Today, settings, links. |
-| Use Today | `#C94B3B` | very pale tomato tint / white | Badge and `Hari ini`; always paired with words/icon. |
-| Use Soon text | dark amber approx. `#8A4600`–`#944A00` | white / pale amber | Badge and `2 hari`; v02 bitmap sampling measured approx. `4.8:1` for countdown. |
-| Add label | dark burnt orange approx. `#8A3D00` | white | v02 bitmap sampling measured approx. `6.7:1`; the circular plus may remain vivid `#FF8D28`. |
-| Suggestion | `#1F6B4F` and `#18201B` | `#DDEADF`-direction surface | Leaf/lightbulb and text. |
+| Canvas | `#F7F5EF` | `#111612` | Main screen background. |
+| Surface | `#FFFFFF` | `#1B211D` | Food rows/cards and bottom material direction. |
+| Primary text | `#18201B` | `#F3F5F1` | Title, food names, essential values. |
+| Secondary text | `#667068` | `#AAB3AC` | Context, metadata, supporting copy. |
+| Brand | `#1F6B4F` | `#5DBB8E` | Selected Today, Settings, links, primary action. |
+| Brand soft | `#DDEADF` | `#244232` | Suggestion surface and quiet brand emphasis. |
+| Use Today | `#C94B3B` | `#F27868` | Badge and `Hari ini`; always paired with words/icon. |
+| Use Soon | dark amber approx. `#8A4600`–`#944A00` | `#E7A542` | Badge and `2 hari`; v02 Light bitmap measured approx. `4.8:1` for countdown. |
+| Divider | `#E4E5DF` | `#343B36` | Subtle border/separator. |
+| Global Add | vivid `#FF8D28` circle; accessible label approx. `#8A3D00` | adaptive warm orange `#E88432` with high-contrast label | Limited icon-derived accent; v02 Light label measured approx. `6.7:1`. |
 
 Target normal-text contrast is at least `4.5:1`. The bitmap is a visual proposal; implementation must use semantic/adaptive tokens and recheck actual rendered contrast in Light, Dark, and Increase Contrast.
+
+## Component and content contracts
+
+| Component | Default content/distribution | Adaptive rule |
+|---|---|---|
+| `PriorityFoodCard` | Leading Bayam thumbnail; flexible name/metadata/badge column; intrinsic `Hari ini` countdown and chevron trailing. | At narrow widths/accessibility sizes, countdown moves below text and the card grows; raw metadata never truncates. |
+| `FoodRow` | Leading Susu thumbnail; flexible name/metadata/status; intrinsic `2 hari` and chevron trailing. | May compact toward the `72 pt` Design System minimum at default size or stack vertically when text grows. |
+| `SuggestionStrip` | Leading semantic icon; flexible title/body column. | Icon aligns top when body wraps; strip remains informational and non-tappable. |
+| `SectionHeader` | Title leading; optional `Lihat semua` trailing. | Action remains a separate `44 × 44 pt` target and moves below only when horizontal fit fails. |
+| App navigation | Three equal logical slots: `Hari ini`, global `Tambah`, `Makananku`. | Native tab behavior governs labels/safe areas; Add opens a sheet and is not a fourth destination. |
+
+| Visible item | Exact identity/context | Status/value |
+|---|---|---|
+| Bayam | `Bayam`; `Kulkas • Dicuci, dibuka` | `Gunakan hari ini`; `Hari ini`. |
+| Susu segar | `Susu segar`; `Kulkas • Dibuka kemarin` | `Segera gunakan`; `2 hari`. |
+| Suggestion | `Saran kecil`; `Letakkan bayam di bagian depan kulkas agar mudah terlihat saat memasak.` | No hidden action or recipe link. |
 
 ## Interaction model
 
@@ -103,7 +132,7 @@ Target normal-text contrast is at least `4.5:1`. The bitmap is a visual proposal
 
 ## State adaptations
 
-- Empty Light uses the same navigation shell, places the reviewed transparent basket illustration slightly above optical center, and presents the exact empty title, explanatory body, primary `Tambahkan bahan` action, and concise minimum-input note. A context-clean reviewer found no material issue at normal iPhone viewing size.
+- Empty Light uses the same navigation shell and places the reviewed transparent basket illustration slightly above optical center, maximum width approx. `220 pt`. Exact content: title `Belum ada bahan untuk dipantau`; body `Tambahkan bahan dari dapurmu. Fresh akan membantu mengurutkan mana yang perlu dipakai lebih dulu.`; primary `Tambahkan bahan`; supporting note `Kamu bisa mulai hanya dengan nama dan lokasi penyimpanan.` A context-clean reviewer found no material issue at normal iPhone viewing size.
 - Populated Dark preserves the Light anchor's content, order, hierarchy, and proportions while adapting the canvas to warm evergreen-charcoal, using restrained elevated surfaces and accessible adaptive urgency colors. Representative ordinary-text samples measured approximately `5.26:1` to `10.93:1` in its context-clean review.
 - Read failure replaces food sections with `Makananmu belum dapat dimuat` and `Coba lagi`, while navigation remains available.
 - All-caught-up uses `Tidak ada yang mendesak hari ini`; it does not fabricate urgent items.

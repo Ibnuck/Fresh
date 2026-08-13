@@ -96,3 +96,19 @@ The integrated Quick Add/Estimate Review gate required two reviewer cycles. The 
 ## 2026-08-13 — Tempe thumbnail alpha repaired
 
 The first transparent Tempe export had visible holes in its cream-white soybean/mycelium texture because the chroma-removal algorithm treated some internal light pixels as background. The intact magenta-source image was reprocessed conservatively: background removal is now limited to saturated magenta pixels connected to the outer canvas border. The project keeps the same asset path, `Design/GeneratedUI/Illustrations/food_thumbnail_tempe_transparent.png`, so future My Food implementation automatically consumes the repaired image. It is scoped to `48–64 pt` row usage and was checked on Fresh Light and Dark surfaces at `64 pt`.
+
+## 2026-08-13 — Canonical UI implementation proposals completed
+
+The approved Today, My Food, Quick Add, and Estimate Review visuals now each have a standalone implementation proposal detailed enough for a new SwiftUI coding chat to work without measuring the PNG or reconstructing decisions from conversation history. Every proposal records its authoritative source order, adaptive `402 × 874 pt` reference canvas, SwiftUI view tree, region geometry, padding/spacing/alignment/distribution, typography roles, Light/Dark token directions, component or field contracts, interactions, alternate states, VoiceOver order, compliance, and deviations.
+
+Measurements deliberately describe point-based intent rather than rigid screenshot coordinates. Approximate dimensions may move by one spacing-grid step; minimum hit targets and accessibility constraints may not shrink; content grows for Dynamic Type. The screen specs remain authoritative over generated pixels, and each screen keeps one canonical bitmap while alternate state images remain supplementary references.
+
+The handoff preserves the product boundaries already approved: search exists only in My Food; Quick Add remains one form with user-entered free-text storage, condition, and package status; ripeness is not a separate field; category/normalization is Fresh-owned and reviewable; `Tinjau estimasi` does not save; only successful `Simpan bahan` persists; and freshness wording never promises food safety.
+
+The first context-clean implementation-proposal review found three cross-document defects: two Today copy/token gaps and an unreachable Quick Add validation trigger. Today was reconciled to the exact approved metadata/suggestion and received explicit Dark token directions. Quick Add keeps its empty-name disabled CTA, but its inline validation now appears after the Name field has been touched and then left/cleared empty; it no longer depends on tapping a disabled control. DEC-017 records that interaction rule.
+
+The second context-clean review found that some Today and My Food alternate-state copy was referenced as exact but not repeated in the standalone proposals. The approved Today context/empty copy and My Food search-empty template were copied from their authoritative screen specs so a future implementation chat does not need to infer or transcribe them.
+
+The third context-clean review found the same omission pattern in Estimate Review's Needs Review state. Its full approved unresolved-storage explanation was copied from the source spec into the proposal, including the user-entered `dekat jendela` phrase and both recovery actions.
+
+After a literal source-to-proposal copy audit closed the remaining My Food entry/search template and Quick Add example wording, a fourth context-clean reviewer inspected the complete documentation and visual handoff and returned `Verdict: No material findings.` Swift build/tests were not applicable because this goal changes no runtime code, project setting, or compiled asset.

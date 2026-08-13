@@ -8,7 +8,7 @@ reference_device: iPhone portrait 402x874pt
 appearance: Light Mode
 content_state: single-form-default
 status: approved-for-visual-generation
-version: 3
+version: 4
 ---
 
 # Quick Add
@@ -76,7 +76,7 @@ Pengguna dapat mengisi seluruh informasi yang diketahui tentang satu bahan dalam
 ### Region G — Bottom action
 
 - Keyboard-safe bottom dock with full-width primary `Tinjau estimasi`.
-- Disabled only while trimmed `Nama bahan` is empty.
+- Disabled while trimmed `Nama bahan` is empty. After the user has interacted with the field, leaving it empty or clearing an earlier value reveals `Masukkan nama bahan.` near the field; the message does not depend on tapping a disabled button.
 - Content scrolls so active fields and CTA are not hidden by the keyboard.
 
 ## 4. Information ownership
@@ -107,7 +107,7 @@ Pengguna dapat mengisi seluruh informasi yang diketahui tentang satu bahan dalam
 
 ## 6. Error and edge states
 
-- Blank name: CTA disabled; after attempted submit show `Masukkan nama bahan.` near the field.
+- Blank name: CTA disabled. After the Name field has been touched, show `Masukkan nama bahan.` when focus leaves it empty or an earlier value is cleared; remove the message once trimmed input is nonempty.
 - Save is not performed until Estimate Review confirmation.
 - Smart interpretation unavailable: preserve raw text, use local matching where possible, and leave unresolved values unknown without a blocking AI banner.
 - Dismiss accidental: preserve draft until discard is confirmed.
@@ -119,7 +119,7 @@ Pengguna dapat mengisi seluruh informasi yang diketahui tentang satu bahan dalam
 
 - Every text field announces its visible label, current value, and concise hint.
 - Optional fields communicate optional status; absence is not announced as an error.
-- Validation is linked to `Nama bahan` and announced once after an attempted action.
+- Validation is linked to `Nama bahan` and announced once when a touched field loses focus empty or an earlier value is cleared.
 - Photo button label describes the action, not only its icon.
 - Date choices announce selected state.
 
