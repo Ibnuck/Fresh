@@ -16,7 +16,8 @@ This is the durable source for material decisions from project conversations. En
 | DEC-008 | 2026-08-12 | accepted | Record outcome summaries and material decisions as project memory. |
 | DEC-009 | 2026-08-12 | accepted | Use free-text food context and generated category; keep ripeness inside condition. |
 | DEC-010 | 2026-08-13 | accepted | Make all Fresh Git/GitHub writes owner-managed. |
-| DEC-011 | 2026-08-13 | accepted | Regenerate the selected icon as one transparent foreground. |
+| DEC-011 | 2026-08-13 | superseded | Regenerate the selected icon as one transparent foreground. |
+| DEC-012 | 2026-08-13 | accepted | Adopt the owner-finished Liquid Glass app icon and appearance settings. |
 
 ---
 
@@ -271,7 +272,7 @@ The owner performs a few additional commands, while accidental cross-repository 
 ## DEC-011 — Regenerate the selected icon as one transparent foreground
 
 - Date: 2026-08-13
-- Status: accepted
+- Status: superseded by DEC-012
 - Scope: visual identity, app icon, workflow
 - Related goal: G00 visual-foundation follow-up
 - References: `Design/AppIcon/APP_ICON_SPEC.md`, `Design/AppIcon/APP_ICON_COMPOSER_SPEC.md`
@@ -290,8 +291,40 @@ The owner discovered during Icon Composer setup that the supplied front, middle,
 
 Use option 3. `Fresh_App_Icon_Concept_02.png` is the authoritative visual reference. The next generator must reproduce its complete symbol as closely as possible in one `1024 × 1024` transparent PNG. The PNG contains no background or iOS mask. The owner configures background colors in Icon Composer.
 
-The old three-layer assets are not production masters and are not committed as authoritative design sources. Runtime icon integration remains incomplete until the replacement PNG is reviewed and imported.
+The old three-layer assets are not production masters and are not committed as authoritative design sources. Runtime icon integration remained incomplete until the replacement PNG was reviewed and imported; DEC-012 records the accepted result.
 
 ### Consequences and revisit trigger
 
 The exact approved geometry is easier to preserve and Icon Composer background changes remain flexible, while per-element depth control is intentionally sacrificed. Revisit only if Apple tooling requires multiple foreground layers or a verified single-layer export cannot preserve small-size readability.
+
+---
+
+## DEC-012 — Adopt the owner-finished Liquid Glass app icon
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: visual identity, app icon, Xcode integration
+- Related goal: G00 visual-foundation follow-up
+- References: `Design/AppIcon/AppIcon_Foreground_Official.png`, `Fresh/AppIcon.icon`, `Design/AppIcon/APP_ICON_COMPOSER_SPEC.md`
+
+### Context
+
+Three regenerated single-foreground candidates were compared, and the owner selected artwork `3.png`. During Icon Composer setup, an initially light neutral background provided insufficient separation from the warm-white clock face. The owner finished the composition and changed the Default background to orange.
+
+### Options considered
+
+1. Keep a light neutral or sage background, preserving the earlier palette direction but weakening the clock boundary.
+2. Use orange for Default, `System Dark` for Dark, and system-aware Tinted treatment.
+3. Bake separate light, dark, and mono backgrounds into the PNG, reducing system adaptability.
+
+### Decision
+
+Use option 2. Preserve the selected `1230 × 1223` RGBA source byte-for-byte as `Design/AppIcon/AppIcon_Foreground_Official.png` and import it as one proportional foreground layer in `Fresh/AppIcon.icon`.
+
+The saved Default fill is Icon Composer's automatic gradient seeded with orange `#FF8D28` (`extended-sRGB 1.0, 0.55294, 0.15686`); Dark uses `System Dark`. The group retains restrained neutral shadow and translucency (`0.5` each). Tinted/mono remains system-controlled, and its foreground glass specialization is disabled so recoloring retains recognizable clock, leaf, and tomato shapes. Default and Dark retain the Liquid Glass treatment.
+
+The Xcode build setting already names `AppIcon`, so the `.icon` document is the runtime source. The earlier concept board remains historical guidance; it is no longer the production master.
+
+### Consequences and revisit trigger
+
+The orange field gives the warm-white clock a visible boundary while keeping the green leaves and orange-red tomato recognizable. Dark gains strong light-on-dark contrast, and Tinted can follow the user's system tint without a baked color dependency. Future visual-generation chats must treat the icon as final and must not repeat it as a generic screen illustration. Revisit only if an actual device check exposes poor legibility at a shipping icon size or a future Apple toolchain changes `.icon` behavior.

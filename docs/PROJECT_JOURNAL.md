@@ -60,3 +60,13 @@ After this experience, the owner chose a permanent manual Git boundary. Codex no
 The selected Sprout & Slice concept board and the UI visual catalog were added as project references. During the first Icon Composer attempt, the owner noticed that the supplied three foreground layers did not match the selected icon concept. The project therefore stopped before claiming a runtime icon.
 
 The corrected direction uses one complete transparent foreground PNG that must reproduce the concept as closely as possible. Background colors remain under owner control in Icon Composer. This reference milestone is published first; the exact image-generation prompt and runtime integration follow as separate reviewed steps.
+
+## 2026-08-13 — Final Liquid Glass app icon selected and integrated
+
+The owner compared three regenerated single-foreground candidates and selected `3.png` as the official Sprout & Slice artwork. The source was preserved unchanged in `Design/AppIcon/AppIcon_Foreground_Official.png` and imported as one proportional layer into `Fresh/AppIcon.icon`; the copy inside the Icon Composer document is byte-identical to the repository master.
+
+During visual review, a light neutral background was found to collide with the warm-white clock. The owner finalized Default with an orange automatic gradient seeded at `#FF8D28`, kept Dark on Icon Composer's `System Dark`, and retained system-controlled Tinted behavior. Default and Dark use restrained Liquid Glass depth; the Tinted foreground disables its glass specialization so the silhouette remains readable when recolored.
+
+Official `ictool` exports for Default, Dark, Tinted Light, and Tinted Dark were generated at `1024 × 1024` and inspected. Default separates the clock from the background, Dark has strong contrast, and tinted renditions retain the clock–leaves–tomato structure. Build/test and the context-clean reviewer gate are completed before the owner receives the Xcode commit message.
+
+The full Xcode test action passed seven test invocations on an iPhone 17 Pro simulator. Two completed context-clean reviewers independently returned `Verdict: No material findings.` after inspecting the final icon sources, appearance exports, compiled asset stacks, bundle contents, documentation, and verification evidence. A reviewer process that stalled during a reconnect was interrupted and not counted as a quality verdict.

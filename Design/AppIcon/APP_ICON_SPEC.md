@@ -1,7 +1,8 @@
 ---
 concept: "02 — Sprout & Slice"
-approval_status: approved-visual-reference / artwork-regeneration-required
-reference: Fresh_App_Icon_Concept_02.png
+approval_status: final-and-integrated
+official_foreground: AppIcon_Foreground_Official.png
+runtime_document: ../../Fresh/AppIcon.icon
 updated_at: 2026-08-13
 ---
 
@@ -9,54 +10,35 @@ updated_at: 2026-08-13
 
 ## Status
 
-`Fresh_App_Icon_Concept_02.png` adalah sumber visual resmi untuk bentuk ikon. Artwork lama yang dipisah menjadi `01_back`, `02_middle`, dan `03_front` tidak sama dengan gambar konsep dan tidak boleh dipakai sebagai master.
+`AppIcon_Foreground_Official.png` adalah master artwork resmi yang dipilih pemilik dari kandidat `3.png`. File ini menggantikan concept board sebagai sumber produksi. `Fresh_App_Icon_Concept_02.png` tetap disimpan sebagai referensi historis yang mengarahkan generasi, bukan sebagai input runtime.
 
-Ikon final belum tersedia. Langkah berikutnya adalah menghasilkan ulang satu PNG foreground transparan yang mereplikasi simbol pada konsep sedekat mungkin.
+Ikon runtime sudah selesai di `Fresh/AppIcon.icon`. Jangan menghasilkan ulang atau mengganti artwork kecuali pemilik membuat keputusan baru yang dicatat di decision log.
 
-## Target output
+## Properti master
 
-- satu file PNG `1024 × 1024 px`;
-- background benar-benar transparan;
-- sRGB dan alpha yang bersih;
-- tanpa rounded-square plate, mask iOS, warna background, shadow luar, teks, atau device mockup;
-- seluruh simbol sudah menyatu dalam satu artwork, bukan file depan/tengah/belakang;
-- ruang transparan di sekeliling simbol cukup untuk pengaturan scale di Icon Composer.
+- ukuran asli `1230 × 1223 px`;
+- PNG RGBA dengan background transparan;
+- SHA-256 `ae398ad3ecd1f3f2d2cadc411715115d9db41a67e46afc0d55ea9b55967e0d76`;
+- satu komposisi utuh berisi daun, jam, jarum, tick, tomat, dan tiga biji;
+- tidak memiliki rounded-square plate atau warna background yang dipra-render;
+- harus dipasang secara proporsional sebagai satu unit—jangan stretch, crop, pecah menjadi layer baru, atau mengubah posisi relatif elemen.
 
-Warna background Default, Dark, dan Tinted akan ditentukan secara terpisah oleh pemilik di Apple Icon Composer.
+Salinan di dalam `Fresh/AppIcon.icon/Assets/AppIcon_Foreground_Official.png` harus tetap byte-identical dengan master ini.
 
-## Fidelity requirement
+## Bentuk dan identitas
 
-Artwork harus mengikuti simbol besar di sisi kiri gambar konsep dan preview `FINAL APP ICON (COMPOSED)`, bukan menafsirkan ulang idenya. Pertahankan sedekat mungkin:
-
-- silhouette, sudut, ukuran relatif, overlap, dan optical balance;
-- dua daun di atas jam: daun kiri hijau tua dan daun kanan hijau muda;
-- muka jam warm off-white berbentuk lingkaran tanpa outline;
+- dua daun di atas jam: kiri hijau tua dan kanan hijau muda;
+- muka jam warm off-white;
 - jarum jam hijau tua berbentuk L dengan ujung membulat;
 - dua tick kecil hijau tua;
-- irisan tomat oranye-merah yang menimpa bagian kanan bawah jam;
+- irisan tomat oranye-merah menimpa kanan bawah jam;
 - tiga biji besar berwarna kuning hangat;
-- gaya flat-organic yang lembut dengan depth/tonal variation tipis seperti konsep.
+- gaya flat-organic lembut dengan tonal variation, highlight, dan kedalaman ringan.
 
-Jangan mengubah proporsi, mengganti posisi elemen, menambah detail, atau membuat versi baru yang sekadar "terinspirasi" oleh konsep.
+## Keterbacaan
 
-## Palette reference
+Warna background bukan bagian dari PNG. Mode Default memakai oranye agar muka jam terang tidak bertabrakan dengan background; Dark dan Tinted diselesaikan oleh Icon Composer. Semua mode harus mempertahankan silhouette daun–jam–tomat serta jarum jam pada ukuran Home Screen kecil.
 
-Gunakan warna yang tampak pada gambar konsep sebagai sumber utama. Token berikut membantu konsistensi, tetapi visual match terhadap referensi lebih penting daripada memaksakan hex bila gambar memiliki tonal variation:
+## Hubungan dengan desain halaman
 
-| Role | Direction |
-|---|---|
-| Evergreen | `#1F6B4F` |
-| Pale leaf | sekitar `#8FBD6D` |
-| Warm off-white | `#F7F5EF` |
-| Tomato | sekitar `#E45A3E` |
-| Seed yellow | sekitar `#FFD58A` |
-
-Tidak ada warna background dalam PNG final.
-
-## Review checklist
-
-- overlay comparison terhadap simbol pada konsep tidak menunjukkan pergeseran bentuk atau proporsi yang jelas;
-- jam, daun, jarum, tick, tomat, dan tiga biji tetap terbaca pada 64 px dan 32 px;
-- tepi alpha bersih dan tidak memiliki halo warna background;
-- tidak ada elemen concept board yang ikut terpotong ke artwork;
-- file dapat diimpor sebagai satu foreground layer ke Icon Composer.
+Ikon adalah identitas aplikasi, bukan ilustrasi generik. Desain layar dan ilustrasi transparan boleh mengambil karakter organik, bentuk membulat, palet hijau–tomat–kuning, dan kedalaman lembutnya. Jangan menempelkan atau menggambar ulang ikon lengkap pada setiap hero, empty state, atau card.

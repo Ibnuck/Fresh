@@ -35,7 +35,7 @@ Jika dokumen berbeda, gunakan urutan prioritas berikut:
 
 ## Status app icon
 
-Sprout & Slice adalah konsep yang dipilih, tetapi artwork runtime final belum selesai. Untuk pekerjaan ikon, baca `../../Design/AppIcon/APP_ICON_SPEC.md`. Jangan memakai atau menciptakan ulang tiga layer lama; output berikutnya harus satu foreground transparan yang meniru gambar konsep sedekat mungkin. Background akan diatur oleh pemilik di Apple Icon Composer.
+Sprout & Slice sudah menjadi ikon final. Master foreground resmi ada di `../../Design/AppIcon/AppIcon_Foreground_Official.png`, konfigurasi runtime ada di `../AppIcon.icon`, dan detailnya terdokumentasi di `../../Design/AppIcon/APP_ICON_SPEC.md` serta `../../Design/AppIcon/APP_ICON_COMPOSER_SPEC.md`. Jangan membuat ulang, memecah, atau mengganti ikon saat menghasilkan desain halaman. Ilustrasi layar boleh mewarisi karakter organik dan paletnya, tetapi tidak boleh menyalin ikon sebagai hero generik pada setiap halaman.
 
 ## Batas penting
 

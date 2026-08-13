@@ -1,38 +1,48 @@
 ---
 concept: "02 — Sprout & Slice"
-approval_status: awaiting-regenerated-foreground
+approval_status: final-and-integrated
+runtime_document: ../../Fresh/AppIcon.icon
 updated_at: 2026-08-13
 ---
 
 # Fresh Icon Composer Specification
 
-## Composition model
+## Active composition
 
-Gunakan satu foreground PNG transparan yang sudah berisi daun, jam, jarum, tick, tomat, dan biji sebagai satu komposisi. Jangan memecahnya menjadi layer depan, tengah, dan belakang.
+`Fresh/AppIcon.icon` adalah dokumen runtime resmi bernama `AppIcon`. Xcode sudah memiliki `ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon`, sehingga nama dokumen dan build setting saling cocok.
 
-Alasan keputusan ini: tiga layer lama tidak mereplikasi konsep terpilih dengan benar. Satu artwork menyatu menjaga geometri yang telah disetujui dan membuat warna background mudah diatur langsung oleh pemilik di Icon Composer.
+Dokumen berisi satu group dan satu foreground layer `AppIcon_Foreground_Official`. Layer memakai master transparan lengkap; geometri daun, jam, dan tomat tidak dipecah atau diubah per-elemen. Icon Composer menyediakan shared square rendition untuk iOS/macOS dan circle preview untuk watchOS; Fresh sendiri adalah aplikasi iOS.
 
-## Foreground requirements
+## Appearance yang disetujui
 
-- canvas `1024 × 1024 px`;
-- transparent background;
-- tidak memiliki rounded corner atau system mask;
-- tidak memiliki background color/gradient;
-- tidak memiliki shadow luar, blur, specular highlight, refraction, atau efek Liquid Glass yang dipra-render;
-- seluruh elemen bergerak dan diskalakan sebagai satu unit;
-- bentuk dan komposisi mengikuti `Fresh_App_Icon_Concept_02.png` sedekat mungkin.
+| Appearance | Konfigurasi final | Alasan |
+|---|---|---|
+| Default / Light | Automatic gradient dengan seed orange `#FF8D28` (`extended-sRGB 1.0, 0.55294, 0.15686`) | Oranye memisahkan muka jam warm-white dari bidang belakang dan tetap harmonis dengan tomat. |
+| Dark | `System Dark` | Memberi pemisahan light-on-dark yang kuat tanpa menambah warna yang bersaing dengan artwork. |
+| Tinted / Mono | System-controlled tint; foreground glass specialization `false` | Silhouette dan detail jarum tetap terbaca saat warna asli diganti oleh sistem. |
 
-## Icon Composer setup
+Jangan mengganti Default kembali ke neutral/sage terang tanpa menguji ulang kontras muka jam. Jangan bake warna appearance ke PNG.
 
-Setelah artwork final disetujui:
+## Liquid Glass
 
-1. Buat atau buka `Fresh/AppIcon.icon` di Apple Icon Composer.
-2. Import PNG final sebagai satu foreground layer.
-3. Jangan melakukan offset atau scale per-elemen karena semua elemen telah menyatu.
-4. Atur warna background Default, Dark, dan Tinted di Icon Composer, bukan di PNG.
-5. Gunakan depth dan material effects minimal; prioritasnya adalah fidelity terhadap konsep dan keterbacaan ukuran kecil.
-6. Preview pada Default, Dark, Tinted/Mono, serta ukuran 64 px, 32 px, dan 16 px sebelum menyimpan.
+Liquid Glass berasal dari Icon Composer, bukan dari raster master:
 
-## Boundary
+- group menggunakan neutral shadow dengan opacity `0.5`;
+- group translucency aktif pada nilai `0.5`;
+- Default dan Dark mempertahankan depth/material response yang terlihat tetapi tidak mengaburkan gambar;
+- foreground Tinted menonaktifkan glass specialization agar recoloring tidak kehilangan separation;
+- tidak ada glow dramatis, refraction destruktif, atau gerakan layer yang mengubah komposisi.
 
-Dokumen ini belum menyatakan ikon runtime selesai. `Fresh/AppIcon.icon` baru boleh dianggap final setelah PNG transparan hasil regenerasi diterima, dibandingkan dengan konsep, disetujui, diimpor, diekspor ulang untuk inspeksi, dan build aplikasi lolos tanpa warning ikon.
+Artinya ikon tetap merupakan Liquid Glass icon pada appearance utama, sementara mode Tinted memakai pengecualian yang disengaja untuk kontras.
+
+## Bukti verifikasi visual
+
+Eksportir resmi `ictool` berhasil membuat Default, Dark, Tinted Light, dan Tinted Dark pada `1024 × 1024`. Inspeksi visual memastikan:
+
+- Default: batas muka jam terlihat jelas di atas oranye;
+- Dark: muka jam, daun, jarum, dan tomat tetap terpisah pada bidang gelap;
+- Tinted Light/Dark: struktur jam–daun–tomat dan jarum masih dikenali tanpa mengandalkan warna asli;
+- tidak ada background yang bocor ke master foreground;
+- komposisi tetap proporsional dan memenuhi mask sistem.
+
+Preview hasil verifikasi bersifat artefak sementara dan tidak disimpan sebagai resource aplikasi. Bila ikon diubah, ulangi ekspor empat rendition, build aplikasi, inspeksi bundle, dan fresh reviewer gate sebelum menyatakan hasil baru final.

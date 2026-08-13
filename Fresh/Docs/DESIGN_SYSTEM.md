@@ -64,6 +64,7 @@ Jangan mengecilkan teks hanya agar muat. Pada Dynamic Type besar, layout harus t
 - Foto makanan, bila dipakai, memakai crop natural dengan pencahayaan lembut; jangan glossy seperti iklan restoran.
 - Jika tidak ada foto, gunakan illustration/shape sederhana dengan satu bahan utama, bukan emoji besar.
 - Hero illustration harus menyisakan ruang untuk teks dan tidak mendominasi lebih dari sekitar 35% tinggi layar.
+- Ikon final Sprout & Slice di `../AppIcon.icon` adalah identitas aplikasi, bukan ilustrasi hero generik. Ilustrasi halaman boleh memakai bahasa bentuk organik, palet hijau–tomat–kuning, dan depth lembut yang selaras, tetapi jangan menyalin komposisi daun–jam–tomat lengkap pada setiap layar.
 
 ## 6. Core components
 
