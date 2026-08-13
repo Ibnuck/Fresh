@@ -112,6 +112,5 @@ Pengguna dapat memahami status dan alasan estimasi Bayam, lalu mencatat apa yang
 
 ## 10. Requested outputs
 
-- `food-detail_use-today_light_v01.png`
-- `food-detail_use-today_dark_v01.png`
-- `food-detail_needs-review_light_v01.png`
+- Canonical: `food-detail_use-today_light_v01.png`.
+- Needs Review, Dark Mode, persistence failure, and unavailable states are specified in Markdown and verified during SwiftUI implementation.

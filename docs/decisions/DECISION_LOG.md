@@ -19,6 +19,9 @@ This is the durable source for material decisions from project conversations. En
 | DEC-011 | 2026-08-13 | superseded | Regenerate the selected icon as one transparent foreground. |
 | DEC-012 | 2026-08-13 | accepted | Adopt the owner-finished Liquid Glass app icon and appearance settings. |
 | DEC-013 | 2026-08-13 | accepted | Generate UI screens sequentially with an asset-first visual handoff. |
+| DEC-014 | 2026-08-13 | accepted | Apply proportional human-visible quality gates to generated UI assets. |
+| DEC-015 | 2026-08-13 | accepted | Keep one canonical visual mockup per screen and specify remaining states in Markdown. |
+| DEC-016 | 2026-08-13 | accepted | Consolidate Quick Add into one scrollable form before Estimate Review. |
 
 ---
 
@@ -359,3 +362,93 @@ The final prompt audits navigation, exact copy, data continuity, reusable compon
 ### Consequences and revisit trigger
 
 The process takes several generator turns but keeps feedback small and preserves a coherent system. Generated files remain proposals rather than source-of-truth changes until reviewed and accepted into the relevant screen specs. Revisit if the image tool cannot retain context or reliably reuse supplied assets; in that case, use the generated master handoff and asset manifest to seed a new chat instead of improvising a new style.
+
+---
+
+## DEC-014 — Apply proportional human-visible quality gates to generated UI assets
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: visual QA, generated assets, reviewer workflow
+- Related goal: visual preparation for G01 and later UI goals
+- References: `Design/GeneratedUI/Proposals/FRESH_VISUAL_STYLE_LOCK.md`
+
+### Context
+
+Pixel-level inspection can identify genuine transparency failures, but repeatedly repairing artifacts that are invisible to people at the asset's actual UI size adds cost without improving the product. The owner wants good human-visible results, not microscopic perfection.
+
+### Decision
+
+Judge mockups at normal iPhone viewing size, food thumbnails at approximately `56–64 pt`, and detail heroes at approximately `180–220 pt`. Pixel sampling remains useful for validating alpha, contrast, or an artifact that is visible at the intended scale; invisible source-pixel irregularities are not blockers.
+
+Do not enlarge a thumbnail into a detail hero merely because its source resolution permits it. Generate a dedicated hero asset when the larger composition needs one, and review that hero at its own usage size.
+
+### Consequences and revisit trigger
+
+Review cycles remain rigorous on copy, layout, contrast, scope, transparency, and visible consistency while avoiding diminishing-return polish. Revisit when an artifact becomes visible on a real target device, at an intended size, or on a supported Light/Dark background.
+
+---
+
+## DEC-015 — Keep one canonical visual mockup per screen
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: visual workflow, feature specification, SwiftUI handoff
+- Related goal: visual preparation for G01 and later UI goals
+- References: `Design/GeneratedUI/Proposals/`, `Fresh/Docs/ScreenSpecs/`
+
+### Context
+
+Generating separate polished bitmaps for Light, Dark, empty, search-empty, Dynamic Type, and every intermediate state costs time and tokens while most differences are better expressed through native SwiftUI behavior. The owner prefers one clear design per page, with refinements made during coding.
+
+### Options considered
+
+1. Generate and review every visual state before implementation.
+2. Generate one canonical screen per page and describe all alternate states and responsive behavior in Markdown.
+3. Skip visual mockups and rely only on prose.
+
+### Decision
+
+Use option 2. Each screen has one canonical Light/default-content mockup that establishes hierarchy, component style, spacing, and visual continuity. Dark Mode, empty/error/loading, search/filter results, Dynamic Type, keyboard, validation, and unavailable states remain explicit Markdown acceptance criteria and are implemented and verified in SwiftUI.
+
+Every canonical mockup must reflect the real feature contract: entry/exit, user inputs, system-generated values, persistence behavior, exact primary action, navigation destination, safety wording, and out-of-scope limits. Reviewers block only material concept, feature, copy, navigation, accessibility, contrast, or visible layout errors. Minor visual refinement is deferred to implementation.
+
+A generated design may introduce a small native, reversible UX improvement that is absent from the current Markdown—such as a clear button, helpful disclosure, or better focus affordance—when it materially improves the same workflow. If accepted, record it in the proposal and reconcile the source spec before coding. It must not silently alter the feature's main purpose, input fields, required/optional semantics, user-versus-Fresh information ownership, persistence point, safety language, or navigation outcome. A proposal for a larger scope change remains a decision for the owner, not an automatic design addition.
+
+Already-generated alternate-state images may remain as supplementary references and review history, but they are not competing canonical designs. Future agents must follow the file explicitly marked `Canonical` in each proposal.
+
+### Consequences and revisit trigger
+
+The handoff becomes smaller and easier to keep consistent while implementation remains responsible for real adaptive behavior. Revisit only when a materially different state cannot be communicated or evaluated safely through Markdown and native previews/tests.
+
+---
+
+## DEC-016 — Consolidate Quick Add into one scrollable form
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: product flow, input UX, visual handoff
+- Related goal: G05 Quick Add and Estimate Review
+- References: `Fresh/Docs/ScreenSpecs/04_QUICK_ADD.md`, `docs/superpowers/specs/2026-08-13-quick-add-single-form-design.md`
+
+### Context
+
+The approved input model contains one required value and a small number of optional free-text/date inputs. A four-step wizard hides the total effort and adds navigation taps to a personal, lightweight capture flow. The owner asked whether all Quick Add inputs could live on one page.
+
+### Options considered
+
+1. Retain four steps: strong focus per question, but more taps and ceremony.
+2. Use one long unstructured form: fewer taps, but weak hierarchy and unclear optional behavior.
+3. Use one grouped, scrollable native sheet with a sticky `Tinjau estimasi` action.
+
+### Decision
+
+Use option 3. Show required `Nama bahan`, optional photo, free-text storage, free-text condition, free-text package status, reference-date choice, and collapsed additional details in one scrollable sheet. State clearly that the user may fill only what they know. Name remains the only required input; absent optional values remain unknown.
+
+`Tinjau estimasi` preserves the draft and opens Estimate Review. It does not persist the food. Category and normalized values are still generated by Fresh and reviewed separately; deterministic rules remain the estimate source.
+
+The previously approved four-step bitmap is preserved as superseded visual history. It no longer defines implementation.
+
+### Consequences and revisit trigger
+
+The form is faster and exposes its scope immediately, but keyboard avoidance, scrolling, field focus, and Dynamic Type need explicit implementation tests. Revisit only if usability testing shows the consolidated form is cognitively heavy or completion quality materially declines.

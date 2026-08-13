@@ -106,6 +106,5 @@ Pengguna dapat melihat seluruh bahan menurut urgensi, mencari nama, memfilter lo
 
 ## 10. Requested outputs
 
-- `my-food_populated_light_v01.png`
-- `my-food_search-empty_light_v01.png`
-- `my-food_dynamic-type-light_v01.png`
+- Canonical: `my-food_populated_light_v01.png` (the accepted generated implementation anchor may use a later reviewed version suffix).
+- Search/filter/global empty, Dark Mode, error, and Dynamic Type are Markdown implementation states; existing reviewed search-empty imagery is supplementary only.

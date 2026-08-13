@@ -35,8 +35,8 @@ Sebelum menghasilkan gambar, tulis ringkasan singkat:
 
 ### Step 3 — Produce variants only when requested
 
-- Default: satu gambar Light Mode populated/default state.
-- Buat Dark Mode, empty, error, loading, atau Dynamic Type hanya jika `requested_outputs` memintanya.
+- Default: satu gambar canonical Light Mode populated/default state per halaman.
+- Buat Dark Mode, empty, error, loading, atau Dynamic Type hanya jika owner meminta pengecualian eksplisit karena state tersebut tidak cukup dijelaskan dalam Markdown.
 - Jangan membuat style alternatif A/B tanpa diminta.
 
 ### Step 4 — Self-check before delivery
@@ -48,7 +48,7 @@ Periksa:
 - Semua copy sesuai spec?
 - Status memakai teks selain warna?
 - Layout realistis untuk SwiftUI dan Dynamic Type?
-- Tidak ada fitur baru atau klaim food safety?
+- Tidak ada perubahan diam-diam pada feature utama, input, ownership data, save timing, navigation, atau klaim food safety?
 - Tab/navigation position sesuai flow?
 
 ### Step 5 — Write the proposal Markdown
@@ -100,15 +100,16 @@ Gunakan data berikut kecuali screen spec meminta state lain:
 | Tempe | Kulkas | Kemasan tertutup | Fresh | 4 hari |
 | Alpukat | Dekat jendela | Lokasi belum dipahami Fresh | Needs Review | Tinjau |
 
-## Handling ambiguity
+## Handling ambiguity and useful generated affordances
 
 - Bila ambiguity kecil: pilih interpretasi native paling sederhana dan catat di `Assumptions`.
 - Bila ambiguity mengubah navigation, feature scope, safety wording, data model, atau primary action: jangan memutuskan diam-diam. Tandai `Decision needed` dalam Markdown.
-- Jangan mengubah screen spec asli.
+- Generated design boleh mengusulkan affordance native kecil yang reversible bila memperkuat workflow yang sama. Catat sebagai deviasi dan sinkronkan screen spec hanya setelah diterima.
+- Jangan mengubah feature utama, jenis input, required/optional behavior, user-versus-Fresh ownership, persistence point, safety wording, atau destination tanpa keputusan owner.
 
 ## Deliverables
 
-1. Mockup image(s) dengan nama: `{screen_id}_{state}_{appearance}_v01.png`.
+1. Satu canonical mockup dengan nama: `{screen_id}_{state}_{appearance}_v01.png`.
 2. Satu Markdown proposal: `{screen_id}_GENERATED_UI_PROPOSAL.md`.
 3. Tabel compliance: requirement, met/not met, note.
 4. Daftar deviasi dan pertanyaan keputusan.

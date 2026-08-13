@@ -112,6 +112,5 @@ Pengguna dapat memperbaiki data bahan dengan memahami field mana yang akan mengu
 
 ## 10. Requested outputs
 
-- `edit-food_default_light_v01.png`
-- `edit-food_recompute-pending_light_v01.png`
-- `edit-food_save-error_light_v01.png`
+- Canonical: `edit-food_default_light_v01.png`.
+- Recompute pending, save error, Dark Mode, and Dynamic Type are specified in Markdown and verified during SwiftUI implementation.

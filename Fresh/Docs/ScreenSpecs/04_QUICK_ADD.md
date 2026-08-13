@@ -6,129 +6,128 @@ framework: SwiftUI
 target_os_design_language: iOS 26
 reference_device: iPhone portrait 402x874pt
 appearance: Light Mode
-content_state: step-1-default
+content_state: single-form-default
 status: approved-for-visual-generation
-version: 2
+version: 3
 ---
 
 # Quick Add
 
 ## 1. Outcome
 
-Pengguna dapat membuat draft bahan dengan beban input rendah, tanpa kehilangan data atau dipaksa memilih nilai palsu saat belum tahu jawabannya.
+Pengguna dapat mengisi seluruh informasi yang diketahui tentang satu bahan dalam satu sheet, lalu meninjau estimasi tanpa kehilangan data atau dipaksa memilih nilai palsu.
 
 ## 2. Presentation and flow
 
-- Presented as native sheet from global Add/CTA.
-- Medium detent dapat dipakai untuk step nama; expand large saat keyboard/detail perlu ruang.
-- Four input steps followed by Estimate Review:
-  1. Nama.
-  2. Lokasi penyimpanan dalam teks bebas.
-  3. Kondisi bahan dan status kemasan dalam teks bebas.
-  4. Tanggal acuan.
-- `More Details` tersedia tetapi collapsed dan tidak menghalangi primary flow.
+- Presented as one native large-detent sheet from global Add, Today empty CTA, or onboarding completion.
+- One vertically scrollable form followed by Estimate Review; not a multi-step wizard.
+- Name is required. Photo, storage, condition, package status, reference date, quantity, and notes are optional.
+- Copy above optional fields: `Isi yang kamu tahu saja. Informasi yang kosong akan ditandai belum diketahui.`
+- `Tinjau estimasi` preserves the draft and opens Estimate Review; it does not save.
+- `Detail lainnya` is collapsed by default and does not obstruct the core form.
 
-## 3. Shared sheet chrome
+## 3. Top-to-bottom layout and exact copy
 
 ### Region A — Sheet header
 
-- Grabber native bila appropriate.
-- Leading `Batal`; center title `Tambah bahan`; trailing text progress `1 dari 4`.
-- Batal saat draft berubah memunculkan confirmation: `Buang draft?`, actions `Lanjut mengisi` dan destructive `Buang`.
+- Native grabber when appropriate.
+- Leading `Batal`; centered title `Tambah bahan`; no step counter.
+- If the draft changed, cancel asks `Buang draft?` with `Lanjut mengisi` and destructive `Buang`.
 
-### Region B — Question
+### Region B — Introduction and name
 
-- Inset 20 pt, approx. 20–24 pt below header.
-- Headline satu pertanyaan; supporting hint di bawah.
-- Input atau pilihan tanggal dimulai 20 pt setelah hint.
+- Main inset `20 pt`; content starts approximately `20–24 pt` below header.
+- Headline `Tambahkan bahan dari dapurmu`.
+- Supporting copy `Nama bahan wajib. Detail lainnya boleh dikosongkan dan ditambahkan nanti.`
+- Large full-width text field with visible label `Nama bahan` and placeholder `Contoh: bayam atau susu segar`.
+- Continuity value in canonical mockup: `Bayam`.
+- Native clear button may appear while the field has text.
+- Optional secondary `Tambah foto` with camera/photo icon. Photo is decorative identity only and not required for interpretation or estimation.
 
-### Region C — Bottom action
+### Region C — Storage
 
-- Primary full-width `Lanjut`; disabled hanya ketika nama kosong pada step 1.
-- Secondary `Lewati untuk sekarang` pada optional steps 2–4; menyimpan `unknown`.
-- Keyboard safe-area inset; CTA tidak tertutup keyboard.
+- Section title `Penyimpanan`.
+- Full-width free-text field with visible label `Lokasi penyimpanan`.
+- Placeholder `Contoh: rak atas kulkas`; continuity value `Rak atas kulkas`.
+- Fresh preserves the exact text and may normalize it internally when possible.
 
-## 4. Step details and exact copy
+### Region D — Condition and package
 
-### Step 1 — Name
+- Section title `Kondisi saat ini`.
+- First free-text field label `Kondisi bahan`; placeholder `Contoh: sudah dicuci dan dipotong`; continuity value `Sudah dicuci`.
+- Second free-text field label `Status kemasan`; placeholder `Contoh: plastiknya sudah dibuka`; continuity value `Kemasan sudah dibuka`.
+- Ripeness is not a separate field. If relevant, the user writes it naturally in `Kondisi bahan`, such as `alpukat masih keras`.
+- Fresh preserves both raw strings and may normalize only details the user actually stated. Unstated condition, ripeness, or package state remains unknown.
 
-- Headline `Apa yang ingin kamu tambahkan?`
-- Hint `Mulai dengan nama sederhana, misalnya bayam atau susu segar.`
-- Large native text field label/placeholder `Nama bahan`.
-- Example typed value: `Bayam` with focus ring/cursor.
-- Optional photo button `Tambah foto` below input, secondary style; photo is never required.
-- CTA `Lanjut`.
+### Region E — Reference date
 
-### Step 2 — Storage
+- Section title `Tanggal acuan`.
+- Supporting hint `Tanggal pada kemasan atau kapan bahan dibeli dapat membantu memperjelas estimasi.`
+- Native single-selection choices: `Tanggal pada kemasan`, `Tanggal dibeli`, `Tidak ada tanggal`.
+- Canonical continuity uses `Tanggal dibeli` and native date value `12 Agu 2026`.
+- `Tidak ada tanggal` stores unknown and hides the date picker.
 
-- Headline `Disimpan di mana?`
-- Hint `Tulis dengan bahasamu sendiri, misalnya rak atas kulkas atau meja dapur.`
-- One full-width native text field with visible label `Lokasi penyimpanan` and placeholder `Contoh: rak atas kulkas`.
-- Example typed value for continuity: `Rak atas kulkas`.
-- Fresh preserves the exact text and interprets it internally as a normalized storage method when possible.
-- Secondary `Belum tahu` or `Lewati untuk sekarang`; prefer one phrase consistently—mockup uses `Lewati untuk sekarang`.
+### Region F — Additional details
 
-### Step 3 — Condition
+- Disclosure title `Detail lainnya`, collapsed by default.
+- Expanded optional fields: quantity and notes only.
+- Do not show price or store in MVP.
 
-- Headline `Bagaimana kondisinya?`
-- Hint `Ceritakan kondisi bahan dan kemasannya secara singkat. Kamu dapat mengubahnya nanti.`
-- First full-width native text field:
-  - visible label `Kondisi bahan`;
-  - placeholder `Contoh: sudah dicuci dan dipotong`;
-  - continuity value `Sudah dicuci`.
-- Tingkat kematangan bukan field tersendiri. Jika relevan, pengguna menuliskannya secara natural di sini, misalnya `alpukat masih keras` atau `pisang sudah sangat matang`.
-- Second full-width native text field:
-  - visible label `Status kemasan`;
-  - placeholder `Contoh: plastiknya sudah dibuka`;
-  - continuity value `Kemasan sudah dibuka`.
-- Fresh preserves both original texts and may normalize stated details into internal condition/package tags. Details not stated remain `unknown`; no ripeness or package state is guessed.
+### Region G — Bottom action
 
-### Step 4 — Reference date
+- Keyboard-safe bottom dock with full-width primary `Tinjau estimasi`.
+- Disabled only while trimmed `Nama bahan` is empty.
+- Content scrolls so active fields and CTA are not hidden by the keyboard.
 
-- Headline `Ada tanggal acuan?`
-- Hint `Tanggal pada kemasan atau kapan bahan dibeli membantu memperjelas estimasi.`
-- Choices: `Tanggal pada kemasan`, `Tanggal dibeli`, `Tidak ada tanggal`.
-- If date choice selected, show native date field. Continuity example: `Tanggal dibeli`, `12 Agu 2026`.
-- CTA exact `Tinjau estimasi`.
+## 4. Information ownership
 
-### More Details
-
-- Disclosure title `Detail lainnya`.
-- Collapsed by default. Expanded optional fields: quantity, notes; do not show price/store in MVP visual.
+| Information | Owner/source | Rule |
+|---|---|---|
+| Name | User | Required; preserve raw string. |
+| Photo | User | Optional/decorative, not an estimate requirement. |
+| Storage | User free text | Preserve raw; normalize locally/optionally on-device. |
+| Condition | User free text | Ripeness only when explicitly stated here. |
+| Package status | User free text | Never guess an unstated state. |
+| Reference type/date | User | May remain unknown. |
+| Category | Fresh | Local catalog + optional Foundation Model; never a Quick Add field. |
+| Normalized tags | Fresh | Derived only from stated text and shown at Estimate Review. |
+| Freshness estimate | Deterministic Fresh rules | Foundation Model supplies no shelf-life or safety facts. |
 
 ## 5. Component inventory
 
 | Component | SwiftUI mapping | Behavior |
 |---|---|---|
-| Sheet | `.sheet` + `NavigationStack` | Detent changes with content/keyboard. |
-| Step state | feature model | Draft persists across steps and validation errors. |
-| Free-text input | `TextField` | Preserves user wording; visible label and example placeholder. |
-| Date choice/input | `Button`, `DatePicker` | Selects reference type and uses native date UI. |
-| Bottom CTA | safe-area inset | Never covered by keyboard. |
+| Sheet | `.sheet` + `NavigationStack` | Large detent; interactive dismissal follows draft policy. |
+| Form | `ScrollView`/`Form` + grouped stacks | Content-driven height and keyboard scrolling. |
+| Draft state | feature model | Persists across focus changes, validation, and Estimate Review back navigation. |
+| Free-text input | `TextField` | Visible label, raw value preservation, no preset replacement. |
+| Date choice/input | selection controls + `DatePicker` | Single reference type; conditional native date control. |
+| Additional details | `DisclosureGroup` | Quantity and notes only; collapsed by default. |
+| Bottom CTA | safe-area inset | Opens Estimate Review; never covered by keyboard. |
 
 ## 6. Error and edge states
 
-- Name blank: CTA disabled; after attempted submit show `Masukkan nama bahan.` near field.
-- Save is not performed in Quick Add until Estimate Review confirmation.
-- Smart interpretation unavailable: no blocking banner; preserve the raw text, use local matching where possible, and leave unresolved values `unknown`.
-- Dismiss accidental: preserve draft until confirmed discard.
-- Large Dynamic Type: fields and date choices grow vertically; do not put two long controls side by side.
-- Dark Mode: text-field boundaries, labels, and selected date choice remain clearly visible without relying on color alone.
+- Blank name: CTA disabled; after attempted submit show `Masukkan nama bahan.` near the field.
+- Save is not performed until Estimate Review confirmation.
+- Smart interpretation unavailable: preserve raw text, use local matching where possible, and leave unresolved values unknown without a blocking AI banner.
+- Dismiss accidental: preserve draft until discard is confirmed.
+- Back from Estimate Review restores every value and focus-independent draft state.
+- Large Dynamic Type: fields and date choices grow vertically; long controls are never side by side.
+- Dark Mode: boundaries, labels, selection, and disabled state remain visible without relying on color alone.
 
 ## 7. Accessibility
 
-- Progress announces `Langkah 1 dari 4`.
 - Every text field announces its visible label, current value, and concise hint.
-- Error message linked to field and announced after submit attempt.
-- Photo button label describes action, not icon.
+- Optional fields communicate optional status; absence is not announced as an error.
+- Validation is linked to `Nama bahan` and announced once after an attempted action.
+- Photo button label describes the action, not only its icon.
+- Date choices announce selected state.
 
 ## 8. Do not include
 
-- Category picker, separate ripeness control, storage/condition/package preset rows, barcode/OCR scanner, AI chat, nutrition form, recipe categories, price/store fields in default view, or every field on one long form.
+- Step progress, category picker, separate ripeness control, storage/condition/package preset rows, barcode/OCR scanner, AI chat, nutrition form, recipe categories, price/store fields, automatic save, or food-safety guarantees.
 
-## 9. Requested outputs
+## 9. Requested output
 
-- `quick-add_name-keyboard_light_v01.png`
-- `quick-add_storage_light_v01.png`
-- `quick-add_condition_light_v01.png`
-- `quick-add_date_light_v01.png`
+- Canonical: `quick-add_form_light_v01.png`.
+- Keyboard-focus, validation, Dark Mode, interpretation-unavailable, and Dynamic Type adaptations are specified in Markdown and verified during SwiftUI implementation; do not generate competing full-screen designs by default.

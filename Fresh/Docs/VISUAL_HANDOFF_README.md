@@ -18,8 +18,8 @@ Untuk menghasilkan seluruh halaman secara berurutan dalam satu chat, mulai dari 
    - `DESIGN_SYSTEM.md` untuk aturan global;
    - `VISUAL_GENERATION_GUIDE.md` untuk cara menghasilkan gambar dan Markdown;
    - satu file target di `ScreenSpecs/`.
-2. Buat satu atau beberapa mockup iPhone portrait sesuai state yang diminta.
-3. Jangan menambah fitur, copy, atau navigasi yang tidak tertulis.
+2. Buat satu canonical mockup iPhone portrait untuk setiap halaman. Jelaskan state lain di Markdown kecuali owner meminta gambar khusus.
+3. Affordance native kecil boleh diusulkan bila berguna dan dicatat. Jangan mengubah diam-diam feature utama, input, ownership data, save timing, navigation, atau safety wording.
 4. Setelah membuat gambar, tulis proposal Markdown memakai format `VisualReferences/GENERATED_UI_PROPOSAL_TEMPLATE.md`.
 5. Tandai semua penyimpangan dari spec sebagai usulan, bukan keputusan.
 

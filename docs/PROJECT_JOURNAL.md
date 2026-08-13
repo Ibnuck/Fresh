@@ -76,3 +76,19 @@ The full Xcode test action passed seven test invocations on an iPhone 17 Pro sim
 The visual-generation workflow was converted into a copy-paste prompt sequence for one persistent external chat. It begins with a repository-based style lock, continues through the eight approved screen specs one at a time, requests only the transparent illustrations each screen needs, and finishes with a cross-screen audit and master handoff.
 
 Each page prompt asks the generator to create reusable assets before mockups, reuse those exact assets across screen states, and write standalone Markdown containing SwiftUI hierarchy, approximate layout measurements, Dynamic Type roles, Light/Dark hex tokens and contrast pairings, interaction states, accessibility, compliance, and deviations. The sequence preserves Fresh's product decisions: search only in My Food, generated category, free-text storage/condition/package, no separate or inferred ripeness, user-selected reference date, decorative photos, and no safety guarantees or out-of-scope features.
+
+Generated-asset review was later calibrated to human-visible use rather than microscopic perfection. Mockups are judged at normal iPhone scale, thumbnails at `56–64 pt`, and hero art at `180–220 pt`. Pixel inspection is reserved for transparency, contrast, or artifacts visible at the intended size; thumbnails are not enlarged into detail heroes.
+
+The owner then simplified the handoff to one canonical visual mockup per page. Alternate appearances and interaction states remain detailed Markdown contracts and will be implemented and verified in native SwiftUI. Canonical review now checks the real feature workflow—including user-entered versus generated information, persistence/navigation outcomes, accessibility, safety wording, and scope—not only visual polish.
+
+Generated proposals may contribute small useful native affordances even when the source spec did not name them, as long as they are documented and do not change the main feature flow or what information is entered. Larger scope changes remain explicit product decisions.
+
+## 2026-08-13 — Canonical Today, My Food, Quick Add, and Estimate Review visuals
+
+Codex generated and context-clean reviewed the first canonical UI handoffs using the final Sprout & Slice palette: Today populated Light, My Food populated Light, Quick Add, and Estimate Review. Supplementary Today empty/Dark and My Food search-empty images remain useful state references, but each page still has only one canonical implementation anchor. Reusable transparent Bayam, Susu, Tempe, Alpukat, and Today empty-container assets live under `Design/GeneratedUI/Illustrations/`.
+
+The owner replaced the earlier four-step Quick Add direction with one grouped, scrollable form. The final canonical file is `Design/GeneratedUI/Screens/quick-add_form_light_v01.png`; `quick-add_name-keyboard_light_v01.png` remains superseded history. The form preserves exactly the same information model: required name, optional decorative photo, free-text storage, free-text condition, free-text package status, optional reference date, and collapsed quantity/notes. `Tinjau estimasi` opens the review screen without saving.
+
+Estimate Review's canonical file is `Design/GeneratedUI/Screens/estimate-review_available_light_v01.png`. It visibly distinguishes user text, `Interpretasi Fresh`, deterministic-rule provenance, confidence, the non-safety disclaimer, and the explicit first save action. Its context-clean reviewer returned `Verdict: No material findings.`
+
+The integrated Quick Add/Estimate Review gate required two reviewer cycles. The first found that the active Estimate Review generation prompt still requested multiple competing state bitmaps. After reconciling Prompt 05 and adjacent future-screen output contracts with DEC-015, a different context-clean reviewer returned `Verdict: No material findings.` No runtime Swift/Xcode behavior changed in this design-only handoff.

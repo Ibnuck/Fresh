@@ -15,7 +15,7 @@ Dokumen ini berisi urutan prompt siap salin untuk satu chat khusus image generat
 
 Setiap prompt halaman meminta tiga jenis keluaran:
 
-1. **Mockup layar** berupa PNG iPhone portrait sesuai semua state yang diminta screen spec.
+1. **Satu mockup canonical** berupa PNG iPhone portrait untuk default/populated Light state setiap halaman; state lain tetap dijelaskan lengkap di Markdown kecuali owner meminta gambar pengecualian.
 2. **Aset ilustrasi transparan** hanya bila layar benar-benar membutuhkannya. Aset harus berupa PNG RGBA tanpa background, teks, device frame, rounded-square app icon mask, atau UI di dalam gambar.
 3. **Markdown implementasi UI/UX** yang cukup presisi untuk chat coding SwiftUI lain, tetapi tetap adaptif terhadap Dynamic Type dan ukuran perangkat.
 
@@ -27,11 +27,11 @@ Gunakan struktur paket keluaran berikut agar file mudah dipindahkan ke repositor
 
 Mockup harus beresolusi tinggi dengan rasio canvas referensi `402:874` dan tidak dibungkus device mockup. Aset transparan harus RGBA master yang cukup untuk downsampling: onboarding/empty-state minimal `2048 × 2048 px`, food thumbnail minimal `1024 × 1024 px`, dan food-detail hero minimal `2048 × 1536 px`. Pertahankan padding alpha sekitar 8–12% agar bentuk tidak terpotong. Jangan melakukan upscaling terhadap gambar kecil atau memakai checkerboard sebagai background palsu.
 
-Di dalam setiap prompt halaman, kerjakan dengan urutan: (1) tetapkan/check ulang layout dari source spec, (2) generate aset transparan yang diminta satu per satu, (3) gunakan aset yang sama pada seluruh mockup state halaman, (4) generate mockup satu per satu, (5) tulis proposal Markdown setelah gambar final. Jangan menggambar ulang sebuah aset di dalam mockup karena bentuknya akan berubah dan continuity akan rusak.
+Di dalam setiap prompt halaman, kerjakan dengan urutan: (1) tetapkan/check ulang layout dan feature contract dari source spec, (2) generate aset transparan yang benar-benar diperlukan satu per satu, (3) gunakan aset yang sama pada canonical dan seluruh implementasi state, (4) generate satu canonical mockup, (5) tulis proposal Markdown setelah gambar final. Jangan menggambar ulang sebuah aset di dalam mockup karena bentuknya akan berubah dan continuity akan rusak.
 
 Markdown halaman wajib memuat:
 
-- nama dan path seluruh mockup/aset;
+- nama/path canonical mockup, state reference yang terlanjur ada, dan seluruh aset;
 - canvas referensi `402 × 874 pt`, safe area, navigation bar, tab bar, sheet, keyboard, dan scroll behavior;
 - hierarchy SwiftUI dalam bentuk tree, misalnya `NavigationStack → ScrollView → VStack → Section`;
 - posisi setiap region: atas/tengah/bawah, hubungan antarelemen, alignment, inset, spacing, minimum height, max width, dan frame intent dalam point;
@@ -182,7 +182,7 @@ visual yang harus dipertahankan oleh halaman berikutnya dan tunggu prompt saya.
 
 ---
 
-## Prompt 02 — Today populated, empty, dan Dark Mode
+## Prompt 02 — Today canonical
 
 ```text
 Lanjutkan dari hasil Onboarding dalam chat yang sama. Pertahankan style lock,
@@ -190,10 +190,9 @@ komponen yang sudah disepakati, dan bahasa ilustrasinya. Baca lengkap
 `Fresh/Docs/ScreenSpecs/02_TODAY.md` serta screen tujuan yang terkait:
 `03_MY_FOOD.md`, `04_QUICK_ADD.md`, `06_FOOD_DETAIL.md`, dan `08_SETTINGS.md`.
 
-Buat mockup:
-- `today_populated_light_v01.png`
-- `today_empty_light_v01.png`
-- `today_populated_dark_v01.png`
+Buat satu canonical mockup `today_populated_light_v01.png`. Empty, Dark Mode,
+loading/error/all-caught-up, dan Dynamic Type dijelaskan di proposal Markdown;
+jangan membuat bitmap tambahan kecuali owner meminta pengecualian.
 
 Ikuti hierarchy tiga detik dan exact copy/data dari spec. Gunakan native large
 navigation title, Settings gear, prominent Bayam priority card, Susu segar row,
@@ -232,10 +231,9 @@ thumbnail, colors, typography, dan spacing dari Today. Baca lengkap
 `Fresh/Docs/ScreenSpecs/03_MY_FOOD.md` dan reread `02_TODAY.md` serta
 `06_FOOD_DETAIL.md` untuk continuity.
 
-Buat mockup yang diminta screen spec:
-- `my-food_populated_light_v01.png`
-- `my-food_search-empty_light_v01.png`
-- `my-food_dynamic-type-light_v01.png`
+Buat satu canonical mockup `my-food_populated_light_v01.png`. Search/filter/global
+empty, Dark Mode, dan Dynamic Type dijelaskan di proposal Markdown; jangan membuat
+bitmap tambahan kecuali owner meminta pengecualian.
 
 Makananku adalah SATU-SATUNYA halaman MVP yang memiliki search. Gunakan native
 search field `Cari bahan`, storage filter chips Semua/Kulkas/Freezer/Dapur, dan
@@ -263,25 +261,19 @@ tunggu prompt selanjutnya.
 
 ---
 
-## Prompt 04 — Quick Add empat langkah
+## Prompt 04 — Quick Add satu form
 
 ```text
 Lanjutkan style dan komponen dari halaman sebelumnya. Baca lengkap versi terbaru
 `Fresh/Docs/ScreenSpecs/04_QUICK_ADD.md`, lalu reread `05_ESTIMATE_REVIEW.md` dan
 `07_EDIT_FOOD.md` agar input, interpretation, dan review flow tidak bertentangan.
 
-Buat empat mockup Quick Add sesuai Requested outputs:
-- `quick-add_name-keyboard_light_v01.png`
-- `quick-add_storage_light_v01.png`
-- `quick-add_condition_light_v01.png`
-- `quick-add_date_light_v01.png`
-
-Ini adalah native sheet/NavigationStack yang progresif, bukan satu form panjang.
-Pertahankan draft antarstep. Teks progress visual di trailing header harus
-berubah sesuai step: `1 dari 4`, `2 dari 4`, `3 dari 4`, dan `4 dari 4`.
-VoiceOver mengumumkannya sebagai `Langkah 1 dari 4`, `Langkah 2 dari 4`, dan
-seterusnya. Step name menampilkan keyboard realistis. Bottom CTA memakai
-safe-area inset dan tidak tertutup keyboard.
+Buat satu canonical mockup `quick-add_form_light_v01.png`. Ini adalah satu
+native large-detent sheet/NavigationStack dengan form scrollable, bukan wizard
+bertahap. Header hanya `Batal` dan `Tambah bahan`, tanpa progress counter.
+Bottom CTA `Tinjau estimasi` memakai safe-area inset dan tidak tertutup keyboard.
+Canonical boleh menunjukkan keyboard dismissed agar seluruh input terlihat;
+focus/keyboard behavior harus tetap dijelaskan di proposal Markdown.
 
 Aturan input wajib terlihat jelas:
 - Nama bahan: text field wajib;
@@ -291,24 +283,25 @@ Aturan input wajib terlihat jelas:
   alami di sini dan tidak menjadi field terpisah;
 - Status kemasan: free-text text field, bukan pilihan tetap;
 - kategori tidak pernah ditanyakan kepada user;
-- tanggal beli/tanggal acuan dipilih user dengan kontrol tanggal native;
+- tanggal acuan memakai `Tanggal pada kemasan`, `Tanggal dibeli`, atau
+  `Tidak ada tanggal` dan kontrol tanggal native bila relevan;
 - detail yang tidak diberikan tetap unknown dan tidak boleh ditebak.
 
 Tidak perlu ilustrasi hero baru untuk Quick Add. Gunakan photo placeholder/fallback
 yang ringan atau reuse thumbnail bahan hanya bila sesuai spec. Jangan membuat
 aset dekoratif yang mengurangi fokus pada input.
 
-Buat `quick-add_GENERATED_UI_PROPOSAL.md` yang menjelaskan setiap step secara
-terpisah: navigation/sheet, focus state, keyboard type, field label/hint/error,
-progress dimensions, stack tree, approx. frames/insets/spacing, CTA enabled/
-disabled/loading states, date-choice interaction, draft preservation, discard
-confirmation, VoiceOver, Dynamic Type, Dark Mode, local-intelligence unavailable
-fallback, exact colors/contrast, SwiftUI primitive mapping, compliance, dan
-deviations.
+Buat `quick-add_GENERATED_UI_PROPOSAL.md` yang menjelaskan satu form lengkap:
+navigation/sheet, scroll/focus state, keyboard type, setiap field label/hint/error,
+stack tree, approx. frames/insets/spacing, CTA enabled/disabled, date-choice
+interaction, draft preservation, discard confirmation, VoiceOver, Dynamic Type,
+Dark Mode, local-intelligence unavailable fallback, exact colors/contrast,
+SwiftUI primitive mapping, compliance, dan deviations.
 
 Jangan menambah category picker, ripeness control, storage presets, package
-chips, barcode/OCR, AI chat, price/store, atau seluruh field dalam satu layar.
-Setelah selesai, kunci pola form yang akan digunakan Edit Food dan tunggu prompt.
+chips, barcode/OCR, AI chat, atau price/store. Semua core field memang berada
+dalam satu form, tetapi `Detail lainnya` tetap collapsed. Setelah selesai, kunci
+pola form yang akan digunakan Edit Food dan tunggu prompt.
 ```
 
 ---
@@ -321,10 +314,10 @@ Lanjutkan flow Quick Add di chat yang sama. Baca lengkap versi terbaru
 `07_EDIT_FOOD.md`. Gunakan raw input yang sama dan tunjukkan pemisahan jelas
 antara ucapan user dan `Interpretasi Fresh`.
 
-Buat mockup:
-- `estimate-review_available_light_v01.png`
-- `estimate-review_needs-review_light_v01.png`
-- `estimate-review_save-error_light_v01.png`
+Buat satu canonical mockup `estimate-review_available_light_v01.png`. Needs
+Review, save error, disclosure expansion, Dark Mode, dan Dynamic Type dijelaskan
+di proposal Markdown; jangan membuat bitmap tambahan kecuali owner meminta
+pengecualian.
 
 Gunakan kembali `food_thumbnail_bayam_transparent.png`; jangan menghasilkan Bayam
 baru dengan style berbeda. Hero harus informatif dan tenang, bukan kartu besar
@@ -357,10 +350,9 @@ Lanjutkan dari Today dan Estimate Review. Baca lengkap versi terbaru
 `Fresh/Docs/ScreenSpecs/06_FOOD_DETAIL.md`, lalu reread `02_TODAY.md`,
 `03_MY_FOOD.md`, `05_ESTIMATE_REVIEW.md`, dan `07_EDIT_FOOD.md`.
 
-Buat mockup:
-- `food-detail_use-today_light_v01.png`
-- `food-detail_use-today_dark_v01.png`
-- `food-detail_needs-review_light_v01.png`
+Buat satu canonical mockup `food-detail_use-today_light_v01.png`. Needs Review,
+Dark Mode, persistence failure, dan unavailable state dijelaskan di proposal
+Markdown; jangan membuat bitmap tambahan kecuali owner meminta pengecualian.
 
 Gunakan data Bayam yang sama. Buat satu aset hero transparan hanya bila thumbnail
 yang sudah ada tidak memiliki resolusi/komposisi memadai:
@@ -398,10 +390,9 @@ Lanjutkan dalam visual system yang sama. Baca lengkap versi terbaru
 `Fresh/Docs/ScreenSpecs/07_EDIT_FOOD.md`, lalu reread `04_QUICK_ADD.md`,
 `05_ESTIMATE_REVIEW.md`, dan `06_FOOD_DETAIL.md`.
 
-Buat mockup:
-- `edit-food_default_light_v01.png`
-- `edit-food_recompute-pending_light_v01.png`
-- `edit-food_save-error_light_v01.png`
+Buat satu canonical mockup `edit-food_default_light_v01.png`. Recompute pending,
+save error, Dark Mode, dan Dynamic Type dijelaskan di proposal Markdown; jangan
+membuat bitmap tambahan kecuali owner meminta pengecualian.
 
 Gunakan native sheet dengan NavigationStack dan pola field Quick Add yang sama.
 Kelompokkan field yang memengaruhi estimasi lebih dulu. Lokasi, kondisi, dan
@@ -433,10 +424,10 @@ Lanjutkan style lock dan pola native yang sama. Baca lengkap versi terbaru
 `Fresh/Docs/ScreenSpecs/08_SETTINGS.md` serta bagian privacy/intelligence/safety
 dari dokumen produk dan design system.
 
-Buat mockup:
-- `settings_default_light_v01.png`
-- `settings_notification-denied_light_v01.png`
-- `settings_default_dark_v01.png`
+Buat satu canonical mockup `settings_default_light_v01.png`. Notification denied,
+Dark Mode, permission feedback, dan unavailable intelligence dijelaskan di
+proposal Markdown; jangan membuat bitmap tambahan kecuali owner meminta
+pengecualian.
 
 Gunakan native pushed page dan grouped Form. Ikuti urutan Pengingat, Tampilan
 tanggal, Privacy dan intelligence, Tentang estimasi, lalu onboarding/version.

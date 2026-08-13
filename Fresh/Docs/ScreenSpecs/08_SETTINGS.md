@@ -98,6 +98,5 @@ Pengguna dapat mengendalikan pengingat, format tanggal, privacy, sumber aturan, 
 
 ## 9. Requested outputs
 
-- `settings_default_light_v01.png`
-- `settings_notification-denied_light_v01.png`
-- `settings_default_dark_v01.png`
+- Canonical: `settings_default_light_v01.png`.
+- Notification denied, Dark Mode, permission feedback, and unavailable-intelligence states are specified in Markdown and verified during SwiftUI implementation.

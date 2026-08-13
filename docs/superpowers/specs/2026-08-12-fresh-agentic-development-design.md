@@ -265,13 +265,7 @@ Seluruh bahan dikelompokkan menurut `Use Today`, `Use Soon`, `Fresh`, dan `Needs
 
 ### 8.4 Quick Add
 
-Sheet bertahap dengan urutan:
-
-1. nama makanan;
-2. lokasi penyimpanan sebagai text field;
-3. kondisi makanan dan status kemasan sebagai dua text field;
-4. tanggal acuan atau label;
-5. review estimasi.
+Satu sheet scrollable menampilkan nama wajib, foto opsional/dekoratif, lokasi penyimpanan sebagai text field, kondisi makanan dan status kemasan sebagai dua text field, pilihan tanggal acuan, serta `Detail lainnya` yang collapsed. CTA `Tinjau estimasi` membuka Estimate Review tanpa menyimpan. Quick Add bukan wizard bertahap.
 
 Kategori dan tingkat kematangan bukan field input. Kategori dihasilkan melalui pencocokan lokal dan optional Foundation Model; kematangan hanya ditafsirkan bila pengguna menyebutkannya di teks kondisi. Teks asli disimpan bersama nilai normalisasi. Data tambahan berada di `More Details`. Informasi tidak lengkap tidak memblokir penyimpanan. Nilai yang belum diketahui disimpan sebagai `unknown`, bukan default palsu.
 

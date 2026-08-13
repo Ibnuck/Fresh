@@ -120,6 +120,5 @@ Pengguna dalam beberapa detik mengetahui bahan yang paling perlu diperhatikan da
 
 ## 11. Requested outputs
 
-- `today_populated_light_v01.png`
-- `today_empty_light_v01.png`
-- `today_populated_dark_v01.png`
+- Canonical: `today_populated_light_v01.png` (the accepted generated implementation anchor may use a later reviewed version suffix).
+- Empty, Dark Mode, loading/error/all-caught-up, and Dynamic Type are Markdown implementation states; existing reviewed alternate-state images are supplementary only.

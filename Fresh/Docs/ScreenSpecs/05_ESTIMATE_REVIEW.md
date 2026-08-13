@@ -121,6 +121,5 @@ Jika estimasi tidak bertanggung jawab:
 
 ## 10. Requested outputs
 
-- `estimate-review_available_light_v01.png`
-- `estimate-review_needs-review_light_v01.png`
-- `estimate-review_save-error_light_v01.png`
+- Canonical: `estimate-review_available_light_v01.png`.
+- Needs Review, save error, Dark Mode, disclosure, and Dynamic Type adaptations are specified in Markdown and verified during SwiftUI implementation; do not generate competing full-screen designs by default.
