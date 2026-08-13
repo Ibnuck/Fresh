@@ -53,8 +53,12 @@ Rows are content-driven with a `72 pt` default minimum, adaptive wrapping, a dec
 
 These are decorative row thumbnails scoped to approximately `48–64 pt`, not detail heroes. The image-generation chroma background is not part of the delivered assets; each listed PNG has an alpha channel and transparent outer background.
 
+`food_thumbnail_tempe_transparent.png` was repaired after the original chroma-removal pass incorrectly removed cream-white pixels inside the tempeh texture. The runtime asset now uses a conservative border-connected magenta mask: only the saturated chroma region connected to the outer canvas becomes transparent, while the complete soybean/mycelium texture remains opaque. Validate this asset at its intended `48–64 pt` row size on both Light and Dark surfaces; do not crop the Tempe image embedded in an older screen bitmap.
+
 ## Review notes
 
 The first populated draft placed the Alpukat row beneath the bottom navigation and omitted the complete safe-area shell. After targeted spacing/safe-area repairs, v04 shows the full final row, a clear canvas separation, the rounded native tab surface, and home indicator. A different context-clean reviewer compared v04 with the specification, proposal, approved Today shell, and superseded baseline, then returned `Verdict: No material findings.`
+
+The canonical bitmap predates the corrected Tempe alpha matte. Treat its layout as authoritative but supply the row from the repaired standalone runtime asset documented above.
 
 Judge screens at normal iPhone viewing size and thumbnails at their intended row size. Material blockers include clipped content behind the tab bar, wrong exact copy/data, inaccessible ordinary text, broken navigation hierarchy, or prohibited feature drift. Microscopic source irregularities invisible at intended size are not blockers.

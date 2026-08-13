@@ -92,3 +92,7 @@ The owner replaced the earlier four-step Quick Add direction with one grouped, s
 Estimate Review's canonical file is `Design/GeneratedUI/Screens/estimate-review_available_light_v01.png`. It visibly distinguishes user text, `Interpretasi Fresh`, deterministic-rule provenance, confidence, the non-safety disclaimer, and the explicit first save action. Its context-clean reviewer returned `Verdict: No material findings.`
 
 The integrated Quick Add/Estimate Review gate required two reviewer cycles. The first found that the active Estimate Review generation prompt still requested multiple competing state bitmaps. After reconciling Prompt 05 and adjacent future-screen output contracts with DEC-015, a different context-clean reviewer returned `Verdict: No material findings.` No runtime Swift/Xcode behavior changed in this design-only handoff.
+
+## 2026-08-13 — Tempe thumbnail alpha repaired
+
+The first transparent Tempe export had visible holes in its cream-white soybean/mycelium texture because the chroma-removal algorithm treated some internal light pixels as background. The intact magenta-source image was reprocessed conservatively: background removal is now limited to saturated magenta pixels connected to the outer canvas border. The project keeps the same asset path, `Design/GeneratedUI/Illustrations/food_thumbnail_tempe_transparent.png`, so future My Food implementation automatically consumes the repaired image. It is scoped to `48–64 pt` row usage and was checked on Fresh Light and Dark surfaces at `64 pt`.
