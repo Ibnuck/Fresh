@@ -18,6 +18,7 @@ This is the durable source for material decisions from project conversations. En
 | DEC-010 | 2026-08-13 | accepted | Make all Fresh Git/GitHub writes owner-managed. |
 | DEC-011 | 2026-08-13 | superseded | Regenerate the selected icon as one transparent foreground. |
 | DEC-012 | 2026-08-13 | accepted | Adopt the owner-finished Liquid Glass app icon and appearance settings. |
+| DEC-013 | 2026-08-13 | accepted | Generate UI screens sequentially with an asset-first visual handoff. |
 
 ---
 
@@ -328,3 +329,33 @@ The Xcode build setting already names `AppIcon`, so the `.icon` document is the 
 ### Consequences and revisit trigger
 
 The orange field gives the warm-white clock a visible boundary while keeping the green leaves and orange-red tomato recognizable. Dark gains strong light-on-dark contrast, and Tinted can follow the user's system tint without a baked color dependency. Future visual-generation chats must treat the icon as final and must not repeat it as a generic screen illustration. Revisit only if an actual device check exposes poor legibility at a shipping icon size or a future Apple toolchain changes `.icon` behavior.
+
+---
+
+## DEC-013 — Generate UI screens sequentially with an asset-first visual handoff
+
+- Date: 2026-08-13
+- Status: accepted
+- Scope: visual workflow, UI handoff, generated assets
+- Related goal: visual preparation for G01 and later UI goals
+- References: `Design/UI_SCREEN_GENERATION_PROMPTS.md`, `Fresh/Docs/VISUAL_GENERATION_GUIDE.md`, `Fresh/Docs/ScreenSpecs/`
+
+### Context
+
+The owner will use a separate image-generation chat to read the Fresh repository, generate each app page and its required transparent illustrations, and return detailed Markdown for later SwiftUI implementation. Generating everything in one request risks visual drift, lost context, inconsistent assets, and incomplete layout documentation.
+
+### Options considered
+
+1. One large prompt for all screens: fast to send, but difficult to review and likely to lose per-screen detail.
+2. A new chat for every screen: isolated, but repeatedly loses component, data, and asset continuity.
+3. One persistent chat with a style-lock prompt, one prompt per screen, asset-first generation, and a final cross-screen audit.
+
+### Decision
+
+Use option 3. Start with a repository-driven visual style lock, then generate Onboarding, Today, My Food, Quick Add, Estimate Review, Food Detail, Edit Food, and Settings in that order. For each page, generate reusable transparent artwork before composing mockups, reuse the same assets across every state, then write a standalone technical Markdown proposal with layout, typography, colors, contrast, SwiftUI mapping, states, and accessibility.
+
+The final prompt audits navigation, exact copy, data continuity, reusable components, asset reuse, accessibility, and scope across all screens. The app icon remains identity rather than a repeated hero. Its orange background may inspire a limited warm accent, but it does not replace the warm off-white UI canvas or evergreen brand color.
+
+### Consequences and revisit trigger
+
+The process takes several generator turns but keeps feedback small and preserves a coherent system. Generated files remain proposals rather than source-of-truth changes until reviewed and accepted into the relevant screen specs. Revisit if the image tool cannot retain context or reliably reuse supplied assets; in that case, use the generated master handoff and asset manifest to seed a new chat instead of improvising a new style.

@@ -8,6 +8,8 @@ Fresh adalah aplikasi iPhone native SwiftUI untuk membantu pengguna rumahan meng
 
 ## Tugas chat visual
 
+Untuk menghasilkan seluruh halaman secara berurutan dalam satu chat, mulai dari `../../Design/UI_SCREEN_GENERATION_PROMPTS.md`. Dokumen tersebut mengatur style lock, urutan halaman, aset PNG transparan, proposal teknis, dan audit akhir. Instruksi di bawah tetap menjadi kontrak global.
+
 1. Baca dokumen dalam urutan berikut:
    - `../../Design/README.md` untuk status identitas dan artefak visual;
    - `../../Design/UIConcepts/VISUAL_DIRECTION_RECONCILIATION.md` untuk batas penggunaan katalog konsep;

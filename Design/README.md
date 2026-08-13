@@ -15,5 +15,6 @@ Folder ini menyimpan referensi dan keputusan visual yang tidak boleh otomatis me
 
 - `UIConcepts/fresh_ui_visual_direction.png` adalah katalog arah visual, bukan screen spec final.
 - `UIConcepts/VISUAL_DIRECTION_RECONCILIATION.md` menjelaskan bagian yang boleh dan tidak boleh diwarisi.
+- `UI_SCREEN_GENERATION_PROMPTS.md` berisi prompt berurutan untuk satu chat image-generation: style lock, delapan halaman, ilustrasi transparan yang diperlukan, Markdown implementasi, dan audit lintas layar.
 
 Jika terjadi konflik, ikuti screen spec terkait, Design System, panduan visual, reconciliation, lalu gambar konsep.

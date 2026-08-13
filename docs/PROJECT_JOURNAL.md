@@ -70,3 +70,9 @@ During visual review, a light neutral background was found to collide with the w
 Official `ictool` exports for Default, Dark, Tinted Light, and Tinted Dark were generated at `1024 × 1024` and inspected. Default separates the clock from the background, Dark has strong contrast, and tinted renditions retain the clock–leaves–tomato structure. Build/test and the context-clean reviewer gate are completed before the owner receives the Xcode commit message.
 
 The full Xcode test action passed seven test invocations on an iPhone 17 Pro simulator. Two completed context-clean reviewers independently returned `Verdict: No material findings.` after inspecting the final icon sources, appearance exports, compiled asset stacks, bundle contents, documentation, and verification evidence. A reviewer process that stalled during a reconnect was interrupted and not counted as a quality verdict.
+
+## 2026-08-13 — Sequential UI generation handoff prepared
+
+The visual-generation workflow was converted into a copy-paste prompt sequence for one persistent external chat. It begins with a repository-based style lock, continues through the eight approved screen specs one at a time, requests only the transparent illustrations each screen needs, and finishes with a cross-screen audit and master handoff.
+
+Each page prompt asks the generator to create reusable assets before mockups, reuse those exact assets across screen states, and write standalone Markdown containing SwiftUI hierarchy, approximate layout measurements, Dynamic Type roles, Light/Dark hex tokens and contrast pairings, interaction states, accessibility, compliance, and deviations. The sequence preserves Fresh's product decisions: search only in My Food, generated category, free-text storage/condition/package, no separate or inferred ripeness, user-selected reference date, decorative photos, and no safety guarantees or out-of-scope features.
